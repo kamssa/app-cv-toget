@@ -1,0 +1,16 @@
+<ion-list>
+  <ion-radio-group [(ngModel)]="confidence"  (ionChange)="changeConfidence()" [value]="confidence">
+    <ion-item lines="none">
+      {{titre}}
+    </ion-item>
+    <ion-item lines="none">
+      <ion-label>Privée</ion-label>
+      <ion-radio value="0" slot="start"></ion-radio>
+    </ion-item>
+  
+    <ion-item lines="none">
+      <ion-label>Public</ion-label>
+      <ion-radio value="1" slot="start"></ion-radio>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>

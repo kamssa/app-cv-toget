@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref=""></ion-back-button>
+      </ion-buttons>
+    <ion-title>
+      Inscription
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <div class="card">
+    <ion-card>
+        <form [formGroup]="registerForm">
+        <ion-item>
+
+          <ion-label position="floating">Votre numéro</ion-label>
+          <ion-input type="text" formControlName="tel" ></ion-input>
+        </ion-item>
+            <div>
+                <ng-container *ngFor="let message of validation_messages.tel" >
+                    <div class="validation-message" *ngIf="registerForm.get('tel').hasError(message.type)&& (registerForm.get('tel').dirty || registerForm.get('tel').touched)">
+                        {{message.message}}
+                    </div>
+                </ng-container>
+            </div>
+        <ion-item>
+            <ion-label position="floating">Votre E-mail</ion-label>
+          <ion-input type="email" formControlName="email" ></ion-input>
+        </ion-item>
+            <div>
+                <ng-container *ngFor="let message of validation_messages.email" >
+                    <div class="validation-message" *ngIf="registerForm.get('email').hasError(message.type)&& (registerForm.get('email').dirty || registerForm.get('email').touched)">
+                        {{message.message}}
+                    </div>
+                </ng-container>
+            </div>
+        <ion-item>
+
+          <ion-label position="floating">Votre Mot de Pass</ion-label>
+          <ion-input [type]="password" formControlName="password"></ion-input>
+            <ion-icon name="eye" align-self-end="" [tooltip]="tooltipsMessage" *ngIf="passwordShow == true" positionV="top" (click)="togglePassword()" ></ion-icon>
+            <ion-icon name="eye-off" align-self-end="" [tooltip]="tooltipsMessage" *ngIf="passwordShow == false" positionV="top" (click)="togglePassword()" ></ion-icon>
+        </ion-item>
+            <div>
+                <ng-container *ngFor="let message of validation_messages.password" >
+                    <div class="validation-message" *ngIf="registerForm.get('password').hasError(message.type)&& (registerForm.get('password').dirty || registerForm.get('password').touched)">
+                        {{message.message}}
+                    </div>
+                </ng-container>
+            </div>
+        <ion-item>
+
+          <ion-label position="floating">Confirmer votre mot de pass</ion-label>
+          <ion-input [type]="repassword" formControlName="repassword"></ion-input>
+            <ion-icon name="eye" align-self-end="" [tooltip]="tooltipsMessage" *ngIf="repasswordShow == true"  positionV="top" (click)="toggleRePassword()" ></ion-icon>
+            <ion-icon name="eye-off" align-self-end="" *ngIf="repasswordShow == false" [tooltip]="tooltipsMessage" positionV="top" (click)="toggleRePassword()" ></ion-icon>
+        </ion-item>
+
+          <div class="btn">
+              <ion-button type="submit" expand="block" (click)="register()" [disabled]="!registerForm.valid" >Valider</ion-button>
+          </div>
+        </form>
+    </ion-card>
+</div>
+</ion-content>

@@ -1,24 +1,24 @@
+<!-- <ngx-loading-bar></ngx-loading-bar> -->
 <ion-app>
-  <ion-split-pane>
-    <ion-menu>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Menu</ion-title>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content>
-        <ion-list>
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle>
-        </ion-list>
-      </ion-content>
-    </ion-menu>
-    <ion-router-outlet main></ion-router-outlet>
-  </ion-split-pane>
+  <ion-router-outlet></ion-router-outlet>
 </ion-app>
+<div *ngIf="loading == true" style="position:fixed; left:0; right:0; top:0; bottom:0; background:#fff; display:flex; justify-content:center; align-items:center; flex-direction: column;">
+<div class="hi-icon-wrap hi-icon-effect-8" style="width:300px; position:absolute; display:flex; align-items:center; justify-content:center; top:-150px; right:0; left:0; margin:0 auto; z-index:-1; border-radius:50%; height:300px; background:#01b0f1;">
+
+    <a href="#" (click)="false;" class="hi-icon" style="color:#fff;"></a>
+
+
+  
+</div>
+<img src="assets/logo/logo.png" style="margin-top: -100px; z-index:555;">
+<span style="z-index:555;"> chargement des composants </span>
+<ion-spinner name="dots"></ion-spinner>
+</div>
+
+<div style="width:100%; color:#09c; text-align:center; background:#fff; border:1px solid; position:fixed; display:flex; top:0; height:50px; justify-content:center; align-items:center;" *ngIf="false">
+<ion-icon name="close" style="color:#09c;position:absolute; top:0; right:0;"></ion-icon>
+ <span>Une mise à jour est disponible. <a href="#" style="">Télécharger !</a> </span> 
+
+
+
+</div>

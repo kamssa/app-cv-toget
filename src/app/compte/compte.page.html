@@ -1,0 +1,95 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-label>Profil</ion-label>
+        <ion-icon name="create" button icon-only item-right clear (click)="editProfi('profil')" style="cursor: pointer;"></ion-icon>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <div *ngIf="!profil?.photos; else newPhoto">
+          <ion-label><h3>{{profil?.nom+' '+profil?.prenoms||'Toget-me.pro'}}</h3></ion-label>
+          <ion-avatar slot="end" button (click)="onTackPicture()" style="width: 60px; height:60px;">
+            <ion-img [src]="profil?.photos"></ion-img>
+          </ion-avatar>
+          <ion-icon name="camera" style="position: absolute;right: 5px;bottom: 0;" button></ion-icon>
+          </div>
+          <ng-template #newPhoto>
+            <ion-label><h3>{{profil?.nom+' '+profil?.prenoms}}</h3></ion-label>
+            <ion-avatar slot="end" button (click)="onTackPicture()" style="width: 60px; height:60px;">
+              <ion-img [src]="profil?.photos"></ion-img>
+            </ion-avatar>
+            <ion-icon name="camera" style="position: absolute;right: 5px;bottom: 0;" button></ion-icon>
+          </ng-template>
+        </ion-item>
+        <ion-item>
+          <ion-label><h3>Nom</h3>
+            <p>{{profil?.nom}}</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>
+            <h3>Prénoms</h3>
+            <p>{{profil?.prenoms}}</p>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-label>Sécurité</ion-label>
+        <ion-icon name="create" button icon-only item-right clear (click)="editProfi('pass')" style="cursor: pointer;"></ion-icon>
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label><h3>Mot de passe
+            <p>{{'*********'}}</p>
+          </h3></ion-label>
+          </ion-item>
+        </ion-list>
+    </ion-card-content>
+  </ion-card>
+  
+  <ion-card disabled>
+    <ion-card-header>
+      <ion-item lines="none">
+        <ion-label>Coordonnées</ion-label>
+        <!-- <ion-icon name="create" button icon-only item-right clear (click)="editProfi('coordonnee')" style="cursor: pointer;"></ion-icon> -->
+      </ion-item>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label>
+          <h3>Email</h3>
+          <hr>
+          <p>{{profil?.email || 'sylvain.yao@toget.pro'}}</p>
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <h3>Telephone</h3>
+          <hr>
+          <p>{{profil?.telephone || '+22507344680'}}</p>
+        </ion-label>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

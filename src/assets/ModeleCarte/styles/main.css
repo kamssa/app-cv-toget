@@ -1,0 +1,82 @@
+/**
+* Style des carte de visite
+*/
+
+body{
+    background-color: grey;
+}
+.carte{
+    display: block;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Modele 1*/
+
+.carte.modele-1 .modele-1-top{
+    background-color: #ffffff;
+    display: inline-block;
+    width: 100%;
+}
+.modele-1-top .logo-zone{
+    float: left !important;
+    width: 40%;
+    padding: 10px;
+}
+.modele-1-top .logo{
+    width: 80px;
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
+    border-radius: 100%;
+    background-color: beige;
+    border:1px solid black;
+}
+.nom-entreprise{
+    font-size: 24px;
+}
+.modele-1-top .personne-info{
+    width: 60%;
+    float: right;
+}
+
+.carte.modele-1 .modele-1-down{
+    background-color:blue;
+    padding: 10px;
+}
+
+.modele-1-down .down-row{
+    display: inline-block;
+    width: 100%;
+}
+.modele-1-down .down-row .adresse-societe{
+    float: left !important;
+    width: 60%;
+}
+.modele-1-down .down-row .adresse-personne{
+    float: right !important;
+    width: 40%;
+}
+
+
+/*Modele 2 */
+
+.carte.modele-2 .modele-2-row{
+    width:100%;
+    display:inline-block;
+}
+
+.modele-2 .modele-2-row .modele-2-left{
+    width:50%;
+    float:left !important;
+    background-image: linear-gradient(to right orange, grey);
+    padding:10px;
+}
+
+.modele-2 .modele-2-row .modele-2-right{
+    width:50%;
+    float:left !important;
+    background-color:#ffffff;
+}
+

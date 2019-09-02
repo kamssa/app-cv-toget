@@ -1,0 +1,108 @@
+<div *ngIf="boucle ==  true && boucleSmall == false">
+<ion-card style="padding:0;" *ngFor="let m of [1,2,3,4,5]">
+    <ion-card-content [ngStyle]="{'background-repeat':'no-repeat', 'background-size':'100% 100%', 'height': '200px', 'background':'#ddd', 'color':'#fff'}">
+
+	  <div style="position:relative; display:flex; color:#fff; flex-wrap:wrap; justify-content:center; align-items:center; width:100%; height:auto; text-align:center;" >
+	  <div style="width:100%;">
+			<div style="width:30%; height:70px; background:#aaa; margin:5px; float:left;"> <div class="cylon_eye"></div> </div>
+			
+			<div style="width:60%;  background:transparent; padding:5px; float:right;">
+				<div style="width:100%; height:20px; background:#aaa; margin:5px;"> <div class="cylon_eye"></div> </div>			
+				<div style="width:100%; height:20px; background:#aaa; margin:5px;"> <div class="cylon_eye"></div> </div>			
+			
+			</div>
+	  </div>
+		
+		<div style="width:100%;  background:transparent; margin:5px;">
+		
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:left;"><div class="cylon_eye"></div></div>
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:right;"><div class="cylon_eye"></div></div>
+		</div>
+
+		<div style="width:100%; height:20px; background:transparent; margin:5px;">
+		
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:left;"><div class="cylon_eye"></div></div>
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:right;"><div class="cylon_eye"></div></div>
+		</div>
+
+		<div style="width:100%; height:20px; background:#aaa; margin:5px;"><div class="cylon_eye"></div></div>
+
+
+	  </div>
+    </ion-card-content>
+
+</ion-card>
+</div>
+
+<div *ngIf="boucle ==  false && boucleSmall == false" style="width:100%;">
+
+<ion-card style="padding:0;">
+    <ion-card-content [ngStyle]="{'background-repeat':'no-repeat', 'background-size':'100% 100%', 'height': '200px', 'background':'#ddd', 'color':'#fff'}">
+
+	  <div style="position:relative; display:flex; color:#fff; flex-wrap:wrap; justify-content:center; align-items:center; width:100%; height:auto; text-align:center;" >
+	  <div style="width:100%;">
+			<div style="width:30%; height:70px; background:#aaa; margin:5px; float:left;"> <div class="cylon_eye"></div> </div>
+			
+			<div style="width:60%;  background:transparent; padding:5px; float:right;">
+				<div style="width:100%; height:20px; background:#aaa; margin:5px;"> <div class="cylon_eye"></div> </div>			
+				<div style="width:100%; height:20px; background:#aaa; margin:5px;"> <div class="cylon_eye"></div> </div>			
+			
+			</div>
+	  </div>
+		
+		<div style="width:100%;  background:transparent; margin:5px;">
+		
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:left;"><div class="cylon_eye"></div></div>
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:right;"><div class="cylon_eye"></div></div>
+		</div>
+
+		<div style="width:100%; height:20px; background:transparent; margin:5px;">
+		
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:left;"><div class="cylon_eye"></div></div>
+			<div style="width:40%; height:20px; background:#aaa; margin:2px; float:right;"><div class="cylon_eye"></div></div>
+		</div>
+
+		<div style="width:100%; height:20px; background:#aaa; margin:5px;"><div class="cylon_eye"></div></div>
+
+
+	  </div>
+    </ion-card-content>
+
+</ion-card>
+
+</div>
+
+
+
+
+
+
+
+<div *ngIf="boucleSmall ==  true"  style="width:100%;">
+		<div style="width:100%; display:flex; justify-content:center; align-items:center;">
+		
+			<div *ngFor="let m of [1,2,3,4,5]" style="width:80px; margin:5px; height:50px; background:#f2f2f2; display:flex; justify-content:center;position:relative;">
+				<div style="width:80%; height:20px; background:#ddd; margin-top:15px;"><div class="cylon_eye"></div></div>
+				<div style="width:100%; height:5px; background:#ddd; position:absolute; bottom:0;"><div class="cylon_eye"></div></div>
+			</div>
+		</div>
+			
+</div>
+
+
+
+<div *ngIf="boucleSmallLeft ==  true"  style="width:100%;">
+
+		
+	
+	<div style=" width:100%;" class="sidbarleft " ><div style="width:100%; height:20px; background:#ddd;"><div class="cylon_eye"></div></div></div>
+
+
+
+
+
+
+	
+	
+			
+</div>

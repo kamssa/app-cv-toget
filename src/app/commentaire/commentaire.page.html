@@ -1,0 +1,75 @@
+<ion-header>
+	<ion-toolbar>
+
+		<ion-buttons slot="start">
+            <ion-back-button defaultHref="/tabs/accueil"></ion-back-button>
+        </ion-buttons>
+		
+		<ion-title>
+			<ion-icon ios="ios-pricetag" md="md-pricetag" style="color:#09c;"></ion-icon> Demande de carte de visite
+		</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content style="background:rgba(0,0,0,0.5);">
+
+
+	<ion-card>
+		<ion-card-header>
+			<ion-item style="margin: 5px;">
+				<ion-card-subtitle>Formulaire de demande</ion-card-subtitle>
+				<ion-button fill="outline" slot="end">Accueil</ion-button>
+			</ion-item>
+			<ion-card-title style="text-align:center; margin-top:5px;"> <ion-icon name="pin" slot="start"></ion-icon> Carte de visite</ion-card-title>
+		</ion-card-header>
+
+		<ion-card-content>
+			<form [formGroup]="commentaireForm">
+				<div style="width:100%; display:flex; justify-content:center; flex-wrap:wrap;">
+					<label for="nom" style="width: 90%; margin:10px;">
+						Nom <input type="text" class="input" formControlName="nom"/>
+						<span style="color:red; font-size:10px;">Exemple : johnson</span>
+					</label>
+
+
+					<label for="prenom" style="width: 90%; margin:10px;">
+						Prenom <input type="text" class="input"  formControlName="prenom"/>
+						<span style="color:green; font-size:10px;">Exemple : paul marlvin's</span>
+					</label>
+
+
+					<label for="tel" style="width: 90%; margin:10px;">
+						Téléphone <input type="tel" class="input"  formControlName="telephone"/>
+						<span style="color:#09c; font-size:10px;">Exemple : 09090909</span>
+					</label>
+
+					<label for="email" style="width: 90%; margin:10px;">
+						Email <input type="email" class="input"  formControlName="email" />
+						<span style="color:blue; font-size:10px;">Exemple : johnson@domaine.com</span>
+					</label>
+
+					<label for="nom" style="width: 90%; margin:10px;">
+						Nombre de carte de visite <input type="number" class="input"  min="1" max="500" pattern="[0-9]*" inputmode="numeric" autocomplete="tel" value="" formControlName="nombre_c_v"/>
+						<span style="color:orange; font-size:10px;">Exemple : 200</span>
+					</label>
+
+					<label  style="width: 90%; margin:10px;">
+							choix de communication
+					</label>
+					<div *ngFor="let c of choix">								
+						<input type="radio"  id="{{c.name}}" name="choix_communication"  value="{{c.name}}"  (change)="radioChangeHandler($event)" formControlName="choix_communication" style="margin-top: -10px"/>
+						&nbsp;<label for="{{c.name}}" [ngStyle]="{'color':c.color}"><ion-icon [name]="c.icone" style="zoom:2.0">
+						</ion-icon></label>&nbsp;&nbsp;&nbsp;
+					</div>
+					<br>
+
+					<ion-button expand="block" style="width: 90%; margin:10px;" (click)="valider()" [disabled]="!commentaireForm.valid">Envoyer ma demande</ion-button>
+
+				</div>
+			</form>
+		</ion-card-content>
+
+	</ion-card>
+
+
+</ion-content>

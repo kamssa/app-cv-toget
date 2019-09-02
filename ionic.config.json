@@ -1,5 +1,7 @@
 {
   "name": "TogetCV",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

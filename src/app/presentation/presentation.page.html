@@ -1,0 +1,40 @@
+<!-- <ion-header>
+  <ion-toolbar>
+    <ion-title>presentation</ion-title>
+  </ion-toolbar>
+</ion-header> -->
+<!-- <div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img src="assets/logo.png">
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div> -->
+
+<ion-content padding color="primary-contrast">
+    <div class="md-cards">
+        <div class="md-card-cont">
+          <div class="tlt" style="border: 0%">      
+          </div>
+          <ion-slides pager class="demo-card"  style="margin-top: 100px"  >
+            <ion-slide *ngFor="let img of image; let i=index" autoplay= 1000>
+              <ion-card-content>
+                <img class="md-img" [src]="img.image" draggable="true" style="  margin-bottom: 122px;">
+                <ion-card-title>{{img.title}}</ion-card-title>
+                <ion-card-subtitle>{{img.dev}}</ion-card-subtitle>
+                <ion-button [ngClass]="{'botn' : 2>i}" (click)="goTo()">
+                  Accéder
+                </ion-button>
+                  <div class="md-rank" style="margin-top: 40px">{{img?.rank}}</div>
+              </ion-card-content>
+            </ion-slide>
+          </ion-slides>
+        </div>
+      </div>
+      <div class="no" color="dark">
+          <ion-button (click)="goTo()">Skip</ion-button>
+      </div>
+</ion-content>
+
+
+<!-- [routerLink]="['/accueil'] -->

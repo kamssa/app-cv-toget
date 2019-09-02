@@ -1,0 +1,65 @@
+<ion-content style="background:transparent !important;" fullscreen>
+<ion-header>
+  <ion-toolbar *ngIf="active == false">
+    <!-- <ion-button  fill="clear" color="light"> -->
+	    <ion-icon ios="ios-arrow-back" md="md-arrow-back" slot="start" style="font-size:25px;" (click)="close()" color="light"></ion-icon>
+		
+		<ion-icon ios="ios-download" md="md-download" slot="end" color="light" class="icone-top" (click)="downloadCarte(img);"></ion-icon>
+		  <ion-icon ios="ios-call" md="md-call" slot="end" color="light" class="icone-top" (click)="presentActionSheetCall()"></ion-icon>
+		  <ion-icon ios="ios-mail" md="md-mail" slot="end" color="light" class="icone-top" (click)="presentActionSheetMail()"></ion-icon>
+		  <ion-icon ios="ios-share" md="md-share" slot="end" color="light" class="icone-top" (click)="presentActionSheetShare();"></ion-icon>
+		  <ion-icon ios="ios-lock" md="md-lock" slot="end"  color="light" class="icone-top" *ngIf="privated == true"></ion-icon>
+		  <ion-icon ios="ios-unlock" md="md-unlock" slot="end"  style="color:green" class="icone-top" *ngIf="privated == true"></ion-icon>
+		  
+		  
+		<ion-icon ios="ios-star" md="md-star" slot="end"  style="color:yellow;" (click)="presentAlertCollectionMessage()"  class="icone-top" *ngIf="suppr == false && requestP == 1"></ion-icon>
+			
+		<ion-icon ios="ios-star-outline" md="md-star-outline" slot="end" (click)="presentAlertCollection();"  color="light" *ngIf="suppr == false && requestP == 0" class="icone-top"></ion-icon>
+		  
+		  
+		  <ion-icon ios="ios-trash" md="md-trash" slot="end" (click)="presentAlertCollectionDelete();"  color="light" class="icone-top" *ngIf="suppr == true"></ion-icon>
+		    <ion-icon ios="ios-more" md="md-more" slot="end"  color="light" class="icone-top" (click)="presentActionSheet($event);" style="margin-right:5px;"></ion-icon>
+    <!-- </ion-button> -->
+  </ion-toolbar>
+
+  <ion-toolbar *ngIf="active == true">
+    <!-- <ion-button  fill="clear" color="light"> -->
+	    <ion-icon ios="ios-close" md="md-close" slot="start" style="font-size:25px;" (click)="close()" color="light"></ion-icon>
+		
+		
+		  
+			<ion-button color="light" slot="end" (click)="presentAlertPrompt();">
+					<span color="primary">Demander</span> <ion-icon ios="ios-code-download" md="md-code-download"  color="primary" class="icone-top" ></ion-icon>
+			</ion-button>
+	
+	
+    <!-- </ion-button> -->
+  </ion-toolbar>
+  
+  
+</ion-header>
+ 
+
+ 
+  <ion-slides [options]="sliderOpts" #slider *ngIf="allData?.verify_photo == true">
+    <ion-slide>
+      <div class="swiper-zoom-container">
+        <img *ngIf="img" src="{{ img }}" alt="chargement en cours..." style="color:#fff; text-align:center;">
+		<span *ngIf="!img" style="color:#fff; text-align:center;"> Chargement des composents...</span>
+      </div>
+    </ion-slide>
+  </ion-slides>
+
+  
+  <ion-slides [options]="sliderOpts" #slider *ngIf="allData?.verify_photo == false">
+    <ion-slide>
+      <div class="swiper-zoom-container" style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; flex-direction: column;">
+	   <!-- <ion-icon ios="ios-code-download" md="md-code-download" ></ion-icon> -->
+	   <ion-icon ios="ios-clock" md="md-clock" color="light" style="font-size:200px;"></ion-icon>
+       <p style="color:#fff; ">Cette carte est en cours de création...</p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <!-- <A href="toget://tabs/ma-collection">Take QR Code</A> -->
+  <!-- <A href="content://io.ionic.toget_me/ma-collection">Take QR Code2</A> -->
+</ion-content>

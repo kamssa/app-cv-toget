@@ -1,0 +1,44 @@
+<ion-header>
+    <ion-toolbar>
+
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="" text="" icon="close" (click)="dismiss();"></ion-back-button>
+			 <!-- <ion-icon ios="ios-close-circle" md="md-close-circle"></ion-icon> -->
+        </ion-buttons>
+		
+        <ion-title>
+           Debug Formulaire
+		 </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content style="text-align:center">
+
+
+
+<ion-item>
+  <ion-label>Message</ion-label>
+  <ion-textarea rows="6" cols="20" placeholder="Entrer votre message ici..."></ion-textarea>
+</ion-item>
+
+<div style="display:flex; justify-content:center; align-items:center; width:100%; flex-wrap:wrap; padding:15px;">
+	<ion-thumbnail style="margin:10px; display:flex; justify-content:center; align-items:center; background: #f2f2f2; width:30%;">
+	  <ion-icon ios="ios-add" md="md-add"></ion-icon>
+	</ion-thumbnail>
+
+	<ion-thumbnail style="margin:10px; display:flex; justify-content:center; align-items:center; background: #f2f2f2; width:30%;">
+	  <ion-icon ios="ios-add" md="md-add"></ion-icon>
+	</ion-thumbnail>
+
+	<ion-thumbnail style="margin:10px; display:flex; justify-content:center; align-items:center; background: #f2f2f2; width:30%;">
+	  <ion-icon ios="ios-add" md="md-add"></ion-icon>
+	</ion-thumbnail>
+</div>
+<span> Vos captures</span><br/>
+
+
+    <ion-button color="primary" style="margin-top: 40px;">
+       Envoyer &nbsp;<ion-icon ios="ios-paper-plane" md="md-paper-plane"></ion-icon>
+    </ion-button>
+  
+
+</ion-content>

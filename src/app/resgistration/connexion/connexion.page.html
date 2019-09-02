@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button  defaultHref=""></ion-back-button>
+      </ion-buttons>
+    <ion-title>connexion</ion-title>
+  </ion-toolbar>
+</ion-header>
+<!--<ion-content>
+    <div>
+        <p>Appuyer sur 'Lancer' puis parler à votre appareil de maniere claire et repose</p>
+        <ion-button  [color]="(isListening) ? 'danger':'secondary'" (tap)="(isListening)? stopListening():startListening()">
+       {{(isListening) ? 'stop!':'lancer !'}}
+        </ion-button>
+    </div>
+    <ion-list>
+        <ion-item *ngIf="matches.length<=0">
+        Aucun resultat : 5
+        </ion-item>
+        <ion-item *ngFor="let match of matches">
+        {{match}}
+        </ion-item>
+    </ion-list>
+</ion-content>-->
+<ion-content>
+  <div class="card">
+      <ion-card>
+          <form [formGroup]="connexionForm">
+          
+
+            <ion-item>
+
+
+          <ion-input type="text" formControlName="login" placeholder="Votre login"></ion-input>
+        </ion-item>
+            <div>
+                <ng-container *ngFor="let message of validation_messages.login" >
+                    <div class="validation-message" *ngIf="connexionForm.get('login').hasError(message.type)&& (connexionForm.get('login').dirty || connexionForm.get('login').touched)">
+                        {{message.message}}
+                    </div>
+                </ng-container>
+            </div>
+        <ion-item>
+            <ion-input [type]="password" formControlName="password" placeholder="Votre mot de passe"></ion-input>
+            <ion-icon name="eye" align-self-end="" [tooltip]="tooltipsMessage" *ngIf="passwordShow == true" positionV="top" (click)="togglePassword()" ></ion-icon>
+            <ion-icon name="eye-off" align-self-end="" [tooltip]="tooltipsMessage" *ngIf="passwordShow == false" positionV="top" (click)="togglePassword()" ></ion-icon>
+        </ion-item>
+            <div>
+                <ng-container *ngFor="let message of validation_messages.password" >
+                    <div class="validation-message" *ngIf="connexionForm.get('password').hasError(message.type)&& (connexionForm.get('password').dirty || connexionForm.get('password').touched)">
+                        {{message.message}}
+                    </div>
+                </ng-container>
+            </div>
+            <div class="btn">
+                <ion-button type="submit" expand="block" (click)="login()" [disabled]="!connexionForm.valid">Valider</ion-button>
+            </div>
+
+          </form>
+          <ion-card-content>
+              vous n'avez pas encore de compte? <a routerLink="/register">Inscription</a>
+          </ion-card-content>
+        </ion-card>
+  </div>
+
+</ion-content>
+

@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{'Confidentialité'}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label style="color:#09c" position="floating">Qui peut voir mes données personnelles</ion-label><br>
+    <p style="font-size:10px; color:#aaa;">
+      Rendre vos données personnelles "Privée" ou "Public"
+    </p>
+  </ion-item>
+  <ion-item lines="none" style="margin-top:15px;" button (click)="presentPopCarte($event)">
+    <ion-label position="floating"><h3>Mes cartes de visite</h3></ion-label><br>
+    <p style="font-size:11px; color:#aaa">{{carte}}</p>
+  </ion-item>
+  <ion-item lines="none" style="margin-top:15px;" button (click)="presentPopProfil($event, 'Mon profil')">
+    <ion-label position="floating"><h3>Mon profil</h3></ion-label><br>
+    <p style="font-size:11px; color:#aaa">{{profil}}</p>
+  </ion-item>
+</ion-content>

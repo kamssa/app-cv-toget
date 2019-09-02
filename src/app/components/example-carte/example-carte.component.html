@@ -1,0 +1,10 @@
+<ion-card>
+  <ion-card-content [ngStyle]="{
+    'background-image':'url('+image_fond+')',
+    'background-repeat':'no-repeat',
+    'background-position':'top'}">
+    <ng-content></ng-content>
+  </ion-card-content>
+<span class="bout" (click)="onPartager()"><ion-icon name="share" title="Partager"></ion-icon>Partager</span>
+<span class="bout" (click)="onAjouter()"> <ion-icon name="heart" title="Ma collection"></ion-icon>Enregistrer</span>
+</ion-card>

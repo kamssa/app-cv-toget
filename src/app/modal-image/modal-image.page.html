@@ -1,0 +1,68 @@
+<ion-header style="background-color: #ff7507;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <div *ngIf="!profil?.photos; else newPhoto">
+      <ion-title>{{profil?.nom+' '+profil?.prenoms||'Toget-me.pro'}}</ion-title>
+      <ion-avatar size="" style="margin:0px !important; position:absolute; right: 10px; top: 5px; height: 40px; width: 40px;">
+        <img [src]="link_url+profil?.photos" alt="D" style="width:100%; height: 100%;">
+      </ion-avatar>
+    </div>
+    <ng-template #newPhoto>
+      <ion-title>{{profil?.nom+' '+profil?.prenoms||'Toget-me.pro'}}</ion-title>
+      <ion-avatar size="" style="margin:0px !important; position:absolute; right: 10px; top: 5px; height: 40px; width: 40px;">
+        <img [src]="profil?.photos" alt="D" style="width:100%; height: 100%;">
+      </ion-avatar>
+    </ng-template>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item button (click)="showCartes()">
+      <ion-icon slot="start" name="list-box" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Mes cartes</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showCompte()">
+      <ion-icon slot="start" name="person" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Mon compte</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showConfidential()">
+      <ion-icon slot="start" name="lock" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Confidentialité</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showCollection()">
+      <ion-icon slot="start" name="photos" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Ma collection</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showHistory()">
+      <ion-icon slot="start" name="timer" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Historique de Recherche</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showParams()">
+      <ion-icon slot="start" name="settings" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Paramètres</h3>
+      </ion-label>
+    </ion-item>
+    <ion-item button (click)="showLogout()">
+      <ion-icon slot="start" name="log-out" [ngStyle]="{'color':color}"></ion-icon>
+      <ion-label>
+        <h3>Déconnexion</h3>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

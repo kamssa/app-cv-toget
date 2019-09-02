@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Mes activités</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <ion-item-group *ngFor="let activites of activities | groupeBy: 'date_activity'">
+    <ion-item-divider>
+      <ion-label>{{activites.key}}</ion-label>
+      <ion-icon slot="end" name="trash"></ion-icon>
+    </ion-item-divider>
+    <ion-item *ngFor="let activite of activites.value">
+      <ion-label position="floating">Recherche
+        <ion-icon slot="end" name="more"></ion-icon>
+      </ion-label>
+      
+      <p>
+        <span *ngIf="activite.type == 1">Carte visitée :</span>
+        <span *ngIf="activite.type == 0">Recherche de </span> <span><a [href]="activite.title">{{activite.title}}</a></span><br>
+        <span style="color:lightgray;font-size:small;">{{activite.time_activity}}</span>
+      </p>
+      <ion-thumbnail slot="end" *ngIf="activite.type == 1">
+        <ion-img src="/assets/image/2.png"></ion-img>
+      </ion-thumbnail>
+    </ion-item>
+  </ion-item-group>
+  
+  <!-- <ion-item-group>
+    <ion-item-divider>
+      <ion-label>Hier</ion-label>
+    </ion-item-divider>
+  
+    <ion-item>
+      <ion-label>Bangladesh</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Belarus</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>Belgium</ion-label>
+    </ion-item>
+  </ion-item-group> -->
+</ion-content>

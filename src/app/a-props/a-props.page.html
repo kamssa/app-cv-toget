@@ -1,0 +1,27 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>A propos</ion-title>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<div style="display:flex; justify-content:center; align-items:center; flex-direction: column; text-align:center;">
+	<img src="assets/logo/logo.png" style="width:80%;" />
+	<span style="color:#333;"> Version de l'application : <b style="color:#aaa;">3.0.2</b> </span>
+	<div style="width:100%; padding:10px; letter-spacing:1px;">
+		<div style="text-decoration:underline;"> À propos de toget-me</div>
+		<p><b>Toget-me</b> est une application mobile, un mobile, conçu pour faciliter la présentation, diffusion, gestion, collection et la recherche de carte de visite.
+		</p>
+		
+		<p style="color:#09c;"> Design & Developped by <a href="https://www.toget.pro"> Toget </a></p>
+		
+		<span style=" border:1px solid #ddd; background:#ddd; padding:5px;"> Partager toget-me maintenant</span><br/>
+		<ion-icon ios="ios-share-alt" md="md-share-alt" style="font-size: 70px;" class="uploadR"></ion-icon> 
+	</div>
+</div>
+</ion-content>

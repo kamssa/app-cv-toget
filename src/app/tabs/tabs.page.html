@@ -1,0 +1,25 @@
+<ion-tabs>
+  <ion-tab-bar slot="bottom">
+
+    <ion-tab-button tab="accueil">
+      <ion-label>Accueil</ion-label>
+      <ion-icon name="home"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="ma-collection">
+      <ion-label>Collection</ion-label>
+      <ion-icon name="list"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button tab="demande">
+      <ion-label>Demande</ion-label>
+      <ion-icon name="list-box"></ion-icon>
+    </ion-tab-button>
+
+    <ion-tab-button (click)="presentPopover($event)">
+      <ion-label>Plus</ion-label>
+      <ion-icon name="more"></ion-icon>
+    </ion-tab-button>
+    
+  </ion-tab-bar>
+</ion-tabs>

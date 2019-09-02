@@ -1,0 +1,31 @@
+.expand-wrapper {
+    transition: max-height 0.4s ease-in-out;
+    overflow: hidden;
+    height: auto;
+  }
+  
+  .collapsed {
+    max-height: 10 !important;
+  }
+  
+  
+  .sidbarleft{
+ padding:7px; width:100%; height:30px;
+ border:1px solid #fefefe;
+}
+
+
+.sidActivate{
+border:0;
+border-left: 2px solid #ff6d05;
+background : #f2f2f2;
+}
+
+.sidbarleftheader{
+ padding:7px; width:100%;
+ display:flex;
+ justify-content:center; align-items:center;
+background: #09c;
+
+color: #fff;
+}

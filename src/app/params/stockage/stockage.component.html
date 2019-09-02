@@ -1,0 +1,46 @@
+<ion-header style="background-color: #ff7507;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Stockage</ion-title>
+ </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label style="color:#09c">Utilisation.
+	</ion-label>
+  </ion-item>
+
+ <ion-item lines="none" style="margin-top:15px;">
+    <ion-label>Urilisation du réseau <br/>
+	<span class="span-notify"> 14.0 Mo envoyé(s). 49.9 Mo reçus(s) </span>
+	</ion-label>
+  </ion-item>
+  
+  
+   <ion-item lines="none" style="margin-top:15px;">
+    <ion-label>Utilisation du stockage <br/>
+	<span class="span-notify"> 360 Ko. </span>
+	</ion-label>
+  </ion-item>
+  
+  
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label style="color:#09c">Téléchargement Auto. des cartes.
+	</ion-label>
+  </ion-item>
+
+  <ion-item lines="full" style="margin-top:15px;">
+    <ion-label>Enregistrement local <br/>
+	<span class="span-notify"> Autoriser l'enregistrement local de ma collection personnelle. </span>
+	</ion-label>
+	
+    <ion-toggle [(ngModel)]="pepperoni"></ion-toggle>
+  </ion-item>
+</ion-content>

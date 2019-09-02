@@ -1,0 +1,44 @@
+<!-- Modele 1 -->
+<div *ngIf="allData " style="margin-top: ;" [ngStyle]="{'margin-top' : (marge == true) ? '85px' : '30px'}">
+<div *ngFor="let allData of allData.data | filterBy: userFilter">
+	<ion-card style="padding:0;" *ngIf="allData?.verify_photo == true">
+		<ion-card-content [ngStyle]="{'height': '100%', 'padding':'0'}">
+		   <img [src]="'https://togetme.pro/'+allData?.m_c_v" [alt]="allData?.person_nom_phonetique" tappable (click)="openPreview('https://togetme.pro/'+allData?.m_c_v, allData, actionS, false, privatedMe, user?.id_user, allData?.person_id  )">
+		</ion-card-content>
+	</ion-card>
+
+	<ion-card style="padding:0;" *ngIf="allData?.verify_photo == false">
+		<ion-card-content [ngStyle]="{'background-repeat':'no-repeat', 'background-size':'100% 100%', 'height': '200px', 'background':'#09c', 'color':'#fff'}">
+
+		  <div style="position:relative; display:flex; color:#fff; flex-wrap:wrap; justify-content:center; align-items:center; width:100%; height:auto; text-align:center;" tappable (click)="openPreview('https://togetme.pro/'+allData?.m_c_v, allData, actionS, false, privatedMe, user?.id_user, allData?.person_id )">
+				<span style="width:100%;">Nom : {{allData?.person_nom_phonetique || 'indisponible'}}</span><br/>
+				<span style="width:100%;">Téléphone personnel : {{allData?.person_tel_perso || 'indisponible'}}</span><br/>
+				<!-- <span style="width:100%;">Téléphone professionnel : {{allData?.person_tel_profe || 'indisponible'}}</span><br/> -->
+				<span style="width:100%;"> Email : {{allData?.person_email || 'indisponible'}}</span><br/>
+				<span style=" padding:5px; border:1px dashed #fff;"> Cette carte est cours de création et sera bientôt disponible. Merci de nous faire confiance.</span>
+
+		  </div>
+		</ion-card-content>
+
+	</ion-card>
+</div>
+
+
+ 
+
+      
+            <div *ngIf="allData?.data?.length == 0 " class="alert alert-danger" style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; text-align:center;">
+                <img src="assets/oups.png" style="width:50%;" alt="Oupsss!">
+                <h5><strong>Aucune donnée trouvée </strong></h5>
+                <!-- <a href="#" routerLink="/accueil" *ngIf="actionS == false">Faire une nouvelle recherche</a> -->
+            </div>
+    
+		
+</div>
+
+
+<div *ngIf="allData?.length == 0">	
+
+<app-expandable [boucle]="true"></app-expandable>
+
+</div>

@@ -1,0 +1,42 @@
+.rech{
+
+    width:100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin: 5px 0 5px 0; 
+
+    .rech-fils1{
+        width:90%; 
+        padding: 0 15px 0 20px;
+        border:1px solid transparent;
+        border-radius:25px;
+        height:50px;
+        box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 2px 0 rgba(0, 0, 0, 0.19);
+    }
+    
+    .rech-input{
+           width:90%;
+           border:0px;
+           height:49px;
+           background:transparent;
+           display:inline-block;
+    }
+
+    .rech-input:focus, .rech-input:active, .rech-input:hover{
+
+           border:0px !important;
+           outline:unset;
+
+    }
+    
+    .rech-icon-search{
+       display:inline-block;
+       font-size:25px;
+       margin-top: 12px;
+       position: absolute;
+       color: #09c;
+       cursor:pointer;
+    }
+}	
+   

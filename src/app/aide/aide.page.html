@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+      
+
+      <ion-title>
+        Aide
+      </ion-title>
+      <ion-buttons slot="start">
+        <ion-button  (click)="closeModal()">
+            <ion-icon name="arrow-back"></ion-icon>
+          </ion-button>
+    </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    
+    <ion-card (click)="expandItem(item)" *ngFor="let item of items">
+        <ion-card-header>
+          <ion-card-title>{{ item.question }}</ion-card-title>
+        </ion-card-header>
+        
+        <ion-card-content>
+          <!-- <app-expandable expandHeight="100px" [expanded]="item.expanded"> -->
+            <p>
+              {{ item.reponse }}
+            </p>
+           
+          <!-- </app-expandable> -->
+        </ion-card-content>
+      </ion-card>
+</ion-content>

@@ -1,0 +1,24 @@
+
+<ion-list slot="top">
+  <ion-item *ngIf="allData?.person_tel_perso?.length > 0 ">
+   <ion-label>
+   
+   <ion-badge color="primary"><ion-icon ios="ios-call" md="md-call" style="color:#fff;"></ion-icon></ion-badge>
+   <a href="tel:{{allData?.person_tel_perso}}"> {{allData?.person_tel_perso}}</a>  
+   
+   </ion-label>
+  </ion-item>
+
+  <ion-item *ngIf="allData?.person_tel_profe?.length>0 ">
+    <ion-label><a href="tel:{{allData?.person_tel_profe}}"> <ion-icon ios="ios-call" md="md-call" style="color:#09c;"></ion-icon> {{allData?.person_tel_profe}}</a></ion-label>
+  </ion-item> 
+
+  <ion-item *ngIf="allData?.person_email?.length>0 ">
+    <ion-label><a href="mailto:{{allData?.person_email}}"> <ion-icon ios="ios-mail" md="md-mail" style="color:#09c;"></ion-icon> {{allData?.person_email}}</a></ion-label>
+  </ion-item>
+
+  <ion-item *ngIf=" allData?.person_site_web?.length>0 ">
+    <ion-label><a href="{{allData?.person_site_web}}" target="_blank"><ion-icon ios="ios-git-network" md="md-git-network" style="color:#09c;"></ion-icon>{{allData?.person_site_web}}</a></ion-label>
+  </ion-item>
+</ion-list>
+

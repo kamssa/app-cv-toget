@@ -1,0 +1,43 @@
+<ion-header style="background-color: #ff7507;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Notify</ion-title>
+ </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label style="color:#09c">Parametrage des notifications.
+	</ion-label>
+  </ion-item>
+
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label>Notification de partage <br/>
+	<span class="span-notify"> Autoriser les notifications des partages. </span>
+	</ion-label>
+	
+    <ion-toggle [(ngModel)]="pepperoni"></ion-toggle>
+  </ion-item>
+
+  <ion-item lines="none" style="margin-top:15px;">
+    <ion-label text-wrap>Nouvelle carte de visite<br/>
+	<span class="span-notify">Autoriser les notifications lorsqu'une nouvelle carte de visite est disponible pour consultation.</span>
+	</ion-label>
+	
+    <ion-toggle [(ngModel)]="sausage" [disabled]="false"></ion-toggle>
+  </ion-item>
+
+  <ion-item lines="full" style="margin-top:15px;">
+    <ion-label text-wrap>Notification de version<br/>
+	<span class="span-notify">Autoriser les notifications lorsque Toget-me change de version.</span>	<br/>
+	</ion-label>
+
+    <ion-toggle [(ngModel)]="mushrooms"></ion-toggle>
+  </ion-item>
+
+</ion-content>
