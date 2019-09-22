@@ -6,7 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { CommentairePage } from './commentaire.page';
-
+import { ComponentsModule } from '../components/components.module';
 const routes: Routes = [
   {
     path: '',
@@ -19,7 +19,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule,ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CommentairePage]

@@ -2,7 +2,12 @@
     margin-top: 100px;
 }
 .btn{
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 6em;
+  }
+  
+  .custom{
+  width:100% !important;
+  border: 1px solid #ddd;
   }

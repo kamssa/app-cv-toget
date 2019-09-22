@@ -48,7 +48,7 @@
   .botn{
     visibility: hidden;
   }
-  .no {
+  .btn {
     position:absolute;
     bottom: 20px;
     width:10%;
@@ -57,3 +57,8 @@
     cursor:pointer;
     z-index:5;
 }
+.md-img{
+  margin-top: 20%;
+  font-size:7em;
+}
+

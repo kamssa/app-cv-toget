@@ -32,6 +32,9 @@
               }
             ],
             "styles": [
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
               {
                 "input": "src/theme/variables.scss"
               },
@@ -102,8 +105,15 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "src/karma.conf.js",
-            "styles": [],
-            "scripts": [],
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/intl-tel-input/build/css/intlTelInput.css",
+              "src/styles.css"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js"
+            ],
             "assets": [
               {
                 "glob": "favicon.ico",

@@ -74,7 +74,7 @@
 
   <ion-infinite-scroll  (ionInfinite)="loadMore($event)" loadingSpinner="bubbles" loadingText="Chargement des données...">
     <ion-infinite-scroll-content>
-  <span style="display:flex; justify-content:center; color:#ddd;" *ngIf="endpage == false ">
+  <span style="display:flex; justify-content:center; color:#ddd;" *ngIf="endpage == false || modeles?.data?.length >= 5">
            Plus...</span>
 
 	

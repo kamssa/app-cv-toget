@@ -5,15 +5,18 @@
         <ion-icon name="arrow-back"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>{{'Mes cartes de visites'}}</ion-title>
+	
+      <ion-searchbar color="light" animated placeholder="Recherche par nom ..." #value [value]="" mode="ios" spellcheck="true" (keyup)="keyUpsearch(value?.value)" ></ion-searchbar>
+	  
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
     <app-modele-carte 
+	  [userCollectionFilter]="userCollectionFilter"
       (share)="share($event)"
       (supprimer)="supprimer($event)"
-      [allData]="cartes" [Verify]="true" [actionS]="true" [privatedMe]=" true ">
+      [allData]="cartes" [Verify]="true" [actionS]="false" [privatedMe]=" true ">
     </app-modele-carte>
   </ion-list>
   <!-- <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">

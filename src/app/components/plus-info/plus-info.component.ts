@@ -51,17 +51,17 @@ ngOnInit() {}
   }
   async presentAlerte() {
     const alert = await this.alertCtrl.create({
-      header: 'title',
-      subHeader: 'text',
+      header: 'Voulez-vous vraiment quitter ?',
+      subHeader: '',
       buttons: [{
-        text: 'Annuler',
+        text: 'Non',
         role: 'cancel',
         cssClass: 'secondary',
         handler: () => {
           console.log('Confirm Cancel');
         }
       }, {
-        text: 'Voulez-vous vraiment quittez',
+        text: 'Oui',
         handler: () => {
         navigator['app'].exitApp();
            }

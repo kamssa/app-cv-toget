@@ -11,7 +11,10 @@ import {Router} from '@angular/router';
 import {RegisterService} from '../services/register.service';
 import {Storage} from '@ionic/storage';
 import { AppConfig } from '../parametre/config';
-
+import {DataProviderService} from '../services/data-provider.service';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+// import { ModalController, NavController  } from '@ionic/angular';
 @Component({
   selector: 'app-modal-image',
   templateUrl: './modal-image.page.html',
@@ -22,31 +25,82 @@ export class ModalImagePage implements OnInit {
   color: string = '#09c';
   // color: string = '#ff7507';
   profil: any;
-  link_url:any = AppConfig.image_url;
-
+  link_img:any = AppConfig.image_url;
+  valueSerDataSource = new BehaviorSubject<any>('');
+  validerPhotoValue: boolean;
+  did: any;
   constructor(private modalCtrl: ModalController,
               private validerToken: ValiderTokenService,
               private router: Router,
               private registerService: RegisterService,
               private  toastController: ToastController,
               private storage: Storage,
-              private changeDetectorRef: ChangeDetectorRef) {
+              private changeDetectorRef: ChangeDetectorRef,
+              public dataProviderService: DataProviderService) {
   }
 
   ngOnInit() {
-    
-  }
-  ionViewWillEnter() {
-    this.storage.get('access_data').then(resp => {
-      this.profil = resp;
-      console.log(this.profil);
-    });
-    this.changeDetectorRef.detectChanges();
-  }
-  closeModal() {
-    this.modalCtrl.dismiss();
-  }
+    this.valueSerDataSource.pipe(
+        debounceTime(200),
+        distinctUntilChanged())
+        .subscribe(value => {
+         this.dataProviderService.loadData();
+        });
 
+}
+
+ionViewWillEnter() {
+
+  this.dataProviderService.valeurPhoto.subscribe(resp => {
+    this.validerPhotoValue = resp;
+    console.log('valeur enter de edit  de dataphoto dan localS', this.validerPhotoValue);
+  });
+  this.changeDetectorRef.detectChanges();
+  
+  
+}
+
+
+ionViewDidEnter(){
+    console.log("ionViewDidEnter");
+
+    this.dataProviderService.loadData();
+	
+}
+
+
+checker(){
+	this.did = setInterval(()=>{
+		console.log(1);
+		let localV = sessionStorage.getItem('REDIRECT');
+		if(localV == '1'){
+			this.closeModal();
+			sessionStorage.setItem('REDIRECT', '0');
+		}
+
+		if(localV == '2'){
+			sessionStorage.setItem('REDIRECT', '0');
+			clearInterval(this.did);
+		}
+	}, 1000);
+}
+async closeModal() {
+ await this.modalCtrl.dismiss();
+}
+ionViewWillLeave(){
+	// this.did.clear();
+	// if(this.did){
+		clearInterval(this.did);
+		sessionStorage.setItem('REDIRECT', '0');
+		console.log(2);
+	// }
+
+  this.dataProviderService.loadData();
+  this.dataProviderService.valeurPhoto.subscribe(resp => {
+    this.validerPhotoValue = resp;
+    console.log('valeur enter de edit  de dataphoto dan localS', this.validerPhotoValue);
+  });
+}
   async showCartes() {
     const modal = await this.modalCtrl.create({
       component: MesCartesComponent,
@@ -54,13 +108,20 @@ export class ModalImagePage implements OnInit {
     return await modal.present();
   }
 
+  
   async showCompte() {
     const modal = await this.modalCtrl.create({
-      component: ComptePage,
-    });
-    return await modal.present();
-  }
+        component: ComptePage,
+        componentProps: {
+            'profil': this.dataProviderService.data,
+            animated: true
 
+        }
+    });
+
+     return  await modal.present();
+
+}
   async showConfidential() { 
     const modal = await this.modalCtrl.create({
       component: ConfidentialComponent,
@@ -79,7 +140,9 @@ export class ModalImagePage implements OnInit {
     const modal = await this.modalCtrl.create({
       component: SearchHistoryComponent,
     });
-    return await modal.present();
+    return await modal.present().then(()=>{
+		this.checker();
+	});;
   }
 
   async showParams() {

@@ -15,7 +15,9 @@ export class ExampleCarteComponent implements OnInit {
   @Output() ajouter = new  EventEmitter<any>();
 
  // @ViewChild('innerHtml') innerHtml: ElementRef;
+  // @ViewChild('innerHtml') innerHtml : ElementRef;
   @ViewChild('innerHtml', {static: false}) innerHtml : ElementRef;
+
 
   link:any;
 

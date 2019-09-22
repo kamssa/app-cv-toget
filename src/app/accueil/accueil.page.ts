@@ -14,6 +14,7 @@ import {MessageAlerteService} from '../services/message-alerte.service';
 import { ToastController, Platform } from '@ionic/angular';
 import {ModalImagePage} from '../modal-image/modal-image.page';
 import {OutilService} from '../parametre/outil.service';
+import {DataProviderService} from '../services/data-provider.service';
 @Component({
   selector: 'app-accueil',
   templateUrl: 'accueil.page.html',
@@ -21,10 +22,12 @@ import {OutilService} from '../parametre/outil.service';
 })
 export class AccueilPage implements  OnInit{
     validerTokenValue: boolean;
+    validerPhotoValue: boolean;
   keyword: any;
   public counter=0;
 	public link_img = AppConfig.image_url;
     private modeles: any;
+	public cartes:any=[];
     sliderViewOpts = {
         zoom: false,
         slidesPreview: 1.5,
@@ -102,9 +105,10 @@ constructor(private modalController: ModalController,
               private auths: RegisterService, 
     private auth: ValiderTokenService, private localNotifications: LocalNotifications,
     private platform: Platform, public toastCtrl: ToastController, private outil : OutilService,
-    private validerToken: ValiderTokenService, private changeDetectorRef: ChangeDetectorRef) {
+    private validerToken: ValiderTokenService, private changeDetectorRef: ChangeDetectorRef,
+    public dataProviderService: DataProviderService) {
 		
-        this.modelService.getUpload();
+        this.getModele();
         
 		
 this.localNotifications.schedule({
@@ -114,27 +118,55 @@ this.localNotifications.schedule({
    sound: null
 });
    this.platform.backButton.subscribe(() => {
-    if (this.counter == 0) {
-      this.counter++;
-      this.presentToast();
-      setTimeout(() => { this.counter = 0 }, 3000);
-    } else {
-        navigator['app'].exitApp();
+	   this.testeur();
+    if (this.router.url.startsWith("/tabs/accueil")) {
+        console.log("Nous sommes sur la page d'accueil");        
+			if (this.counter == 0) {
+			  this.counter++;
+			  this.presentToast();
+			  setTimeout(() => { this.counter = 0 }, 3000);
+			} else {
+				navigator['app'].exitApp();
+			}
     }
   });
   
   this.getElementUSer();
     }
+	
+	
+	testeur(){
+		
+		this.storage.get('ACCESS_BEGIN').then(val => {
+			if(val == true){
+				this.router.navigate(['tabs/accueil']);
+				
+
+				
+			}
+        }, error=>{
+				// this.router.navigate(['/presentation']);
+
+			
+		});
+	}
     ionViewWillEnter() {
-        this.validerToken.authenticationState.subscribe(resp =>{
+       
+        this.validerToken.authenticationState.subscribe(resp => {
             this.validerTokenValue = resp;
-            console.log('ionViewWillEnter', this.validerTokenValue)
+            this.dataProviderService.loadData();
+            console.log('ionViewWillEnter', this.validerTokenValue);
             this.getElementUSer();
             this.changeDetectorRef.detectChanges();
              });
+        this.dataProviderService.valeurPhoto.subscribe(resp => {
+            this.validerPhotoValue = resp;
+            console.log('valeur app component de dataphoto dan localS', this.validerPhotoValue);
+        });
+
+        this.getModele();
          
-         
-	}
+}
     async presentToast() {
         const toast = await this.toastCtrl.create({
           message: "Appuyer une seconde fois pour quitter",
@@ -143,13 +175,11 @@ this.localNotifications.schedule({
         });
         toast.present();
       }
-    getElementUSer() {
-		        this.storage.get('access_data').then(resp => {
-                  this.profil = resp;
-                  console.log(this.profil);
-                });
-               
+      getElementUSer() {
+        this.profil = this.dataProviderService.data;
+
 	}
+
 
 openPreview(Image) {
 	this.modelService.getUpload();
@@ -238,4 +268,37 @@ openPreview(Image) {
     openPreviewZOOM(img, allData:any={}, suppr=false, active) {
 		this.outil.openPreview(img, allData, suppr, active);
   }
+  
+  
+  getModele(){
+
+                this.auths.modele().subscribe(resp => {
+                       if(resp['status'] === 200){
+                           this.cartes = resp;
+						   // this.cartes['data'] = {};
+						   this.cartes['data'] = resp['data'].map(x => (x.model_statut == 1)? x : '');
+						   this.cartes['data'] = this.cartes['data'].filter( function(val){return val !== ''} );
+						   // console.log(this.cartes);
+						   
+                       } else {
+                          this.presentToasts('Une erreur est survenue. Veuillez réessayer ');
+                       }
+
+                    },err => {
+                         this.presentToasts('erreur, Veuillez verifier votre connexion internet! ');
+                    });
+
+            
+  }
+  
+  
+        async presentToasts(text: string) {
+		
+        const toast = await this.toastCtrl.create({
+            message: text,
+            duration: 2000
+        });
+        toast.present();
+
+    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
-import {ModalController, PopoverController, NavParams, ActionSheetController, AlertController,ToastController  } from '@ionic/angular';
+import {ModalController, PopoverController, NavParams, ActionSheetController, AlertController,ToastController, LoadingController, Platform  } from '@ionic/angular';
 import {ListeServicePage} from '../liste-service/liste-service.page';
 import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 import {ModeleService} from '../services/modele.service';
@@ -10,6 +10,9 @@ import {BehaviorSubject} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { File } from '@ionic-native/file/ngx';
+import {DataProviderService} from '../services/data-provider.service';
+import { LocalNotifications, ELocalNotificationTriggerUnit, ILocalNotificationActionType, ILocalNotification } from '@ionic-native/local-notifications/ngx';
+import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 	// import {SocialSharing} from '@ionic-native/social-sharing/ngx';
 // import { WebIntent } from '@ionic-native/web-intent';
 	const DATA_KEY = 'access_data';
@@ -24,9 +27,9 @@ import { File } from '@ionic-native/file/ngx';
   styleUrls: ['./entreprise.page.scss'],
 })
 export class EntreprisePage implements OnInit {
+ 
  // @ViewChild('slider', { read: ElementRef })slider: ElementRef;
-  @ViewChild('slider', { static: false}) slider : ElementRef;
-
+ @ViewChild('slider', {static: false}) slider : ElementRef;
   // @Input() img:any;
   // @Input() allData:any;
   // @Input() suppr:boolean;
@@ -38,8 +41,14 @@ export class EntreprisePage implements OnInit {
   id: number;
   personne: number;
   requestP:number;
+  requestPrivate:number;
   collection_id:number;
+  downloadProgress = 0;
+  data=[];
 	objet: any = '';
+	downloadText: any;
+    fileTransfert: FileTransferObject;
+    public storageDirectory: any;
   sliderOpts = {
     zoom: {
       maxRatio: 5
@@ -51,10 +60,43 @@ export class EntreprisePage implements OnInit {
 // fileTransfer.download(..).then(..).catch(..);
 // fileTransfer.abort();
 
-  constructor(private  registerService: RegisterService, private toastController: ToastController, private socialSharing: SocialSharing, private modalController: ModalController, public popoverController: PopoverController, private navParams: NavParams, public actionSheetController: ActionSheetController, public alertController: AlertController, public modeleService: ModeleService, private storage: Storage, private changeDetectorRef: ChangeDetectorRef, private route: ActivatedRoute,
-					private router: Router, private transfer: FileTransfer, private file: File) {
+  constructor(private  registerService: RegisterService, 
+	private toastController: ToastController, private socialSharing: SocialSharing, 
+	private modalController: ModalController, public popoverController: PopoverController, 
+	private navParams: NavParams, public actionSheetController: ActionSheetController, 
+	public alertController: AlertController, public modeleService: ModeleService, 
+	private storage: Storage, private changeDetectorRef: ChangeDetectorRef, 
+	private route: ActivatedRoute,private plt: Platform, private localNotifications: LocalNotifications,
+					private router: Router, private transfer: FileTransfer,
+					 private file: File, private loadingCtl: LoadingController,
+					 public dataProviderService: DataProviderService,
+					 private platform: Platform,
+					 private androidPermissions: AndroidPermissions) {
+						this.img;
 
    }
+   
+   scheduleNotification(id,name, progress=0, img, logo) {
+    this.localNotifications.schedule({
+      id: id,
+      title: 'Toget-me téléchargement',
+      text: name,
+	  icon: logo,
+	  vibrate: true,
+	  progressBar: { value: progress },
+	  attachments: [img]
+    });
+
+    // Works as well!
+    // this.localNotifications.schedule({
+    //   id: 1,
+    //   title: 'Attention',
+    //   text: 'Simons Notification',
+    //   data: { mydata: 'My hidden message this is' },
+    //   trigger: { at: new Date(new Date().getTime() + 5 * 1000) }
+    // });
+  }
+
 
   ngOnInit() {
 	 this.img   = this.navParams.get('img');
@@ -90,10 +132,73 @@ export class EntreprisePage implements OnInit {
 }
  
   close() {
-    this.modalController.dismiss();
+	this.modalController.dismiss();
+	// location.replace('/tabs/ma-collection');
   }
   
   
+  requestCollectionPrivate(){
+	  this.showLoading();
+		this.storage.get(TOKEN_KEY).then(resp =>{
+				if(!resp){
+					 this.allData.private = 0;
+					// this.presentAlertConnexion("Désolé", "Vous devez vous connecter d'abord");
+				}
+		});
+		
+					  this.modeleService.searchCarteSinglePersonnelUpdate(this.allData.id_user).subscribe(response => {
+						  if(response && response['status'] == 200){
+							  if(response['response'] == true){
+									this.allData.private = 1;
+							  }
+							  
+							  if(response['response'] == false){
+								  this.allData.private = 0;
+							  }
+							  
+						  }else{
+							  this.allData.private = 0;
+							  // this.presentToast( "Erreur de récuperation. Le serveur met trop de temps a repondre veuillez réessayer !");
+						  }
+						  this.showLoading(1);
+					  }, 
+					  error => {
+						  this.allData.private = 0;
+						   this.presentToast( "Erreur de récuperation. Verifier votre connexion internet !");
+						   this.showLoading(1);
+					  });		  
+  }
+
+		  async presentAlertCollectionPrivate() {
+			  let text = "";
+			  if(this.allData.private == 1){
+				  text = "Voulez-vous rendre cette carte publique ?";
+			  }else{
+				   text = "Voulez-vous rendre cette carte privée ?";
+			  }
+			const alert = await this.alertController.create({
+			  subHeader: text,
+			  buttons: [{
+				text: 'Non',
+				role: 'cancel',
+				cssClass: 'secondary',
+				handler: () => {
+				  console.log('Confirm Cancel');
+				}
+			  }, {
+				text: 'Oui',
+				handler: () => {
+				  console.log('Confirm Ok');
+				  
+				  this.requestCollectionPrivate();
+				}
+			  }]
+			});
+		
+			await alert.present();
+		  }
+
+
   requestCollection(){
 	  
 		this.storage.get(TOKEN_KEY).then(resp =>{
@@ -102,9 +207,9 @@ export class EntreprisePage implements OnInit {
 					// this.presentAlertConnexion("Désolé", "Vous devez vous connecter d'abord");
 				}
 		});
-		this.storage.get(DATA_KEY).then(data => {
-			this.id = data['id_user'] ?  data['id_user'] : this.id;
-			if (data) {
+		this.data = this.dataProviderService.data;
+			this.id = this.data['id_user'] ?  this.data['id_user'] : this.id;
+			if (this.data) {
 					  this.modeleService.searchCarteSingle(this.id , this.personne).subscribe(response => {
 						  if(response && response['status'] == 200){
 							  if(response['data'].status == true){
@@ -118,13 +223,39 @@ export class EntreprisePage implements OnInit {
 							  }
 						  }else{
 							  this.requestP = 0;
+							  // this.presentToast( "Erreur de récuperation. Le serveur met trop de temps a repondre veuillez réessayer !");
 						  }
 					  }, 
 					  error => {
 						  this.requestP = 0;
+						   // this.presentToast( "Erreur de récuperation. Verifier votre connexion internet !");
 					  });
 			}
-	  });
+	
+	  
+  }
+
+
+
+  requestDemande(data:any={}){
+				
+
+
+			if (data) {
+					  this.registerService.demande(data).subscribe(response => {
+						  if(response && response['status'] == 200){
+									 this.presentToast( "Succès, Votre demande a été envoyée et est en cours de traitement !");
+						  }else{
+
+							  this.presentToast( "Erreur. Le serveur met trop de temps a repondre veuillez réessayer !");
+						  }
+					  }, 
+					  error => {
+
+						   this.presentToast( "Erreur. Verifier votre connexion internet !");
+					  });
+			}
+
 	  
   }
   
@@ -155,6 +286,8 @@ export class EntreprisePage implements OnInit {
 						this.requestP = 1;
 						this.presentToast( "Carte ajoutée avec succes");
 						this.collection_id = resp['response'];
+					   }else{
+						   this.presentToast( "Erreur de traitement  !");
 					   }
 
 					   }, err => {
@@ -185,11 +318,16 @@ export class EntreprisePage implements OnInit {
 					   if (resp['status']===200 && resp['response']=== true){
 						this.requestP = 0;
 						this.presentToast( "Carte supprimé avec succes");
-						if(this.suppr == true){							
+						this.registerService.comunication.push(this.collection_id+'ma-collection');
+						// window.location.reload(resp['response']);
+						// this.router.navigate(['/ma-collection'], { replaceUrl: true });
 							this.close();
-							this.router.navigate(['/connexion']);
-						}
+						// if(this.suppr == true){							
+							// this.router.navigate(['/connexion']);
+						// }
 						
+					   }else{
+						   this.presentToast( "Erreur, veuillez réessayer svp !.");
 					   }
 
 					   }, err => {
@@ -209,18 +347,19 @@ export class EntreprisePage implements OnInit {
 			toast.present();
 
 		}
+
 		  async presentAlertCollection() {
 			const alert = await this.alertController.create({
-			  subHeader: "Voulez-vous ajouter cette carte de votre collection personnel ?",
+			  subHeader: "Voulez-vous ajouter cette carte à votre collection personnelle ?",
 			  buttons: [{
-				text: 'Non, je décline ',
+				text: 'Non',
 				role: 'cancel',
 				cssClass: 'secondary',
 				handler: () => {
 				  console.log('Confirm Cancel');
 				}
 			  }, {
-				text: 'Oui, je le veux',
+				text: 'Oui',
 				handler: () => {
 				  console.log('Confirm Ok');
 				  
@@ -260,16 +399,16 @@ export class EntreprisePage implements OnInit {
 
 		  async presentAlertCollectionDelete() {
 			const alert = await this.alertController.create({
-			  subHeader: "Voulez-vous supprimer cette carte à votre collection personnel ?",
+			  subHeader: "Voulez-vous supprimer cette carte à votre collection personnelle ?",
 			  buttons: [{
-				text: 'Non, je décline ',
+				text: 'Non',
 				role: 'cancel',
 				cssClass: 'secondary',
 				handler: () => {
 				  console.log('Confirm Cancel');
 				}
 			  }, {
-				text: 'Oui, je le veux',
+				text: 'Oui',
 				handler: () => {
 				  console.log('Confirm Ok');
 				  
@@ -348,7 +487,8 @@ export class EntreprisePage implements OnInit {
         handler: () => {
  			if(siteW !== 'Aucun'){				
 				  
-				  window.location.href=siteW;
+				  // window.location.href=siteW;
+				  window.open('http://'+siteW);
 				  
 			}else{
 				alert("Action non autoriser !");
@@ -358,7 +498,7 @@ export class EntreprisePage implements OnInit {
         text: 'Signaler un problème',
         icon: 'bug',
         handler: () => {
-						u.openPreview();
+						window.open('https://play.google.com/store/apps/details?id=io.ionic.toget_me&hl=fr');
         }
       },{
         text: 'Fermer',
@@ -372,14 +512,15 @@ export class EntreprisePage implements OnInit {
     await actionSheet.present();
   }
 
-    share(event) {
-		let linkShare = "hhhhhhhhhh";
-        this.socialSharing.share(event, event, event, event)
+    share(text= null, image=null, link=null) {
+		// let linkShare = "hhhhhhhhhh";
+        this.socialSharing.share(text, image, link)
             .then(() => {
-                console.log(event);
+                // console.log(event);
+				this.presentToast( "Element partagé avec succès !");
             }).catch(() => {
 				
-
+			this.presentToast( "Une Erreur est survenue pendant l'opération !");
         });
 		
     }
@@ -390,22 +531,23 @@ export class EntreprisePage implements OnInit {
 		let aaa= this.img;
     const alert = await this.alertController.create({
       header: 'Formulaire de Demande',
-	  message: 'Modèle  <img src="'+aaa+'">',
+	  message: 'Modèle choisi : <img src="'+aaa+'"> ',
+	  mode: 'ios',
       inputs: [
-        {
+            {
           name: 'nom',
           type: 'text',
           placeholder: 'Nom complet exemple : jhon doe'
         },
         {
           name: 'telephone',
-          type: 'text',
+          type: 'number',
           placeholder: 'Téléphone exemple : 02020202'
         },
         {
-          name: 'nbr',
-          type: 'tel',
-          placeholder: 'quantité exemple : 20 '
+          name: 'email',
+          type: 'text',
+          placeholder: 'Email : jhondoe@exemple.com'
         }
       ],
       buttons: [
@@ -418,8 +560,39 @@ export class EntreprisePage implements OnInit {
           }
         }, {
           text: 'Valider',
-          handler: () => {
-            console.log('Confirm Ok');
+          handler: (data) => {
+            console.log('Confirm Ok', '');
+			  if(typeof data!=null ){
+				  
+				  if(this.isEmail(data.email) == false && data.nom.length ==0 && data.telephone.length ==0 ){
+					   this.presentToast( "Erreur. Veuillez remplir les champs svp !");
+						return false;
+				  }
+
+				  if(data.nom.length < 3){
+					   this.presentToast( "Erreur. champs nom mini 3 caractères !");
+						return false;
+				  }
+
+				  if(data.telephone.length < 8 && !isNaN(data.telephone)){
+					   this.presentToast( "Erreur. Verifier votre telephone svp !");
+						return false;
+				  }
+
+				  
+				  if(this.isEmail(data.email) == false ){
+					   this.presentToast( "Erreur. Verifier votre email svp !");
+						return false;
+				  }
+				  
+				  let modele:any={id_modele: this.allData.id_modele};
+				  let all : any = Object.assign(modele, data);
+						console.log(all);
+						this.requestDemande(all);
+                }else{
+					this.presentToast( "Erreur. Veuillez remplir les champs svp !");
+					return false;
+				}
           }
         }
       ]
@@ -428,7 +601,19 @@ export class EntreprisePage implements OnInit {
     await alert.present();
   }
   
-  
+     isEmail(search:string):boolean
+    {
+        let  serchfind:boolean;
+
+        let regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+
+        serchfind = regexp.test(search);
+
+        console.log(serchfind)
+        return serchfind
+    }
+
+	
      async presentActionSheetCall() {
 		 
 		 
@@ -449,24 +634,24 @@ export class EntreprisePage implements OnInit {
     const actionSheet = await this.actionSheetController.create({
       header: 'Option d\'appel',
       buttons: [{
-        text: Personnel,
+        text: '+'+Personnel,
         icon: 'call',
 		cssClass: 'button-cam',
         handler: () => {
 			if(Personnel !== 'Aucun'){				
 				  
-				  window.location.href='tel:'+Personnel;
+				  window.location.href='tel:00'+Personnel;
 			}else{
 				alert("Action non autoriser !");
 			}
         }
       },{
-        text: Professionnel,
+        text: '+'+Professionnel,
         icon: 'call',
         handler: () => {
 			if(Professionnel !== 'Aucun'){				
 				  
-				  window.location.href='tel:'+Professionnel;
+				  window.location.href='tel:00'+Professionnel;
 			}else{
 				alert("Action non autoriser !");
 			}          
@@ -537,15 +722,12 @@ export class EntreprisePage implements OnInit {
         text: 'Partager l\'image de la carte de visite',
         icon: 'image',
         handler: () => {
- 	         this.share(link);
+			console.log(link);
+ 	         this.share( this.allData.person_nom_phonetique , link, link);
         }
-      },{
-        text: 'Partager le lien vers la carte de visite',
-        icon: 'link',
-        handler: () => {
- 	   
-        }
-      },{
+      },
+
+	  {
         text: 'Fermer',
         icon: 'close',
         role: 'cancel',
@@ -558,32 +740,68 @@ export class EntreprisePage implements OnInit {
   }
   
   
-  
-  
-  
-  
-  
-  
-  downloadCarte(links=""){
+    
+      async showLoading(ext = 0){
+		let loading = await this.loadingCtl.create({
+			message:"Chargement...",
+			showBackdrop: false,
+			spinner: "lines-small"
+		});
+		if(ext == 1){
+			
+			loading.present();
+		}
+		if(ext == 1){
+			loading.dismiss();
+		}
+
+    }
+	
+    downloadCarte(links=""){
 	  console.log(links);
-	  // let fileTransfer: FileTransferObject = this.transfer.create();
-	// let filename = this.allData.person_nom_phonetique ? 'Toget-me_'+this.allData.person_nom_phonetique : "Toget-me_"+new Date().getTime();
-		// const options = {
-		  // url: links,
-		  // dest: '/Toget-me/MediaPhotosCarte_v/'+filename+'.png',
-			// name : filename
 
-		// }
-
-		  // console.log(this.file);
-	  // fileTransfer.download(options.url, this.file.dataDirectory + options.dest ).then((entry) => {
-		// console.log('download complete: ' + entry.toURL());
-	  // }, (error) => {
-	  // });
 
 		this.socialSharing.saveToPhotoAlbum(['https://www.google.nl/images/srpr/logo4w.png','www/image.gif']);
   }
   
+  async downloadImg() {
+	this.checkPermissions();
+	this.downloadText = 'dowloading...';
+	alert('téléchargement en cours, Patientez...');
+	this.fileTransfert = this.transfer.create();
+	const filename = this.allData.person_nom_phonetique ? 'Toget-me_' +
+		this.allData.person_nom_phonetique : 'Toget-me_' + new Date().getTime();
 
-	
+	await this.fileTransfert.download(this.img, this.file.externalRootDirectory + '/Togetme/' + this.img)
+		.then((data) => {
+			// alert(data);
+			// alert('operation effectuée');
+			this.presentToast('Téléchargement effectué avec succès!');
+			this.downloadText = '';
+
+		}, (error) => {
+			alert(error.source);
+			alert(error.target);
+			alert(error.code);
+			alert(error.message);
+
+			//here logging our error its easier to find out what type of error occured.
+			this.presentToast('Echec de téléchargement !');
+		});
+
+
+
+}
+
+
+checkPermissions(){
+	this.androidPermissions.requestPermissions(
+		[
+			this.androidPermissions.PERMISSION.READ_EXTERNAL_STORAGE,
+			this.androidPermissions.PERMISSION.WRITE_EXTERNAL_STORAGE
+		]
+	);
+}
+
+
 }

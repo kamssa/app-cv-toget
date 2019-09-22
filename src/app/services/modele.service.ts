@@ -13,7 +13,13 @@ export class ModeleService {
     static readonly URL =  AppConfig.URL;
     static readonly CARTE_URL = AppConfig.URL + 'Collection/collectionUsers/';
     static readonly CARTE_URL_SINGLE = AppConfig.URL + 'Collection/collectionSingle/';
+    static readonly CARTE_URL_SINGLE_PERSONNEL = AppConfig.URL + 'Collection/collectionPersonnel/';
+    static readonly CARTE_URL_SINGLE_PERSONNEL_UPDATE = AppConfig.URL + 'Collection/collectionPersoUpdate/';
     static readonly URL_AIDE =  AppConfig.URL+'aides';
+    static readonly URL_PAYS =  AppConfig.URL+'Pays';
+    static readonly URL_EMAIL_VERIFY =  AppConfig.URL+'Users/reset';
+    static readonly URL_CODE_VERIFY =  AppConfig.URL+'Users/resetVerif';
+    static readonly URL_PASSWORD_RESET =  AppConfig.URL+'Users/passwordReset';
     static readonly DELETE_ELEMENT =  AppConfig.URL+'Collection/collection/';
     public currentPage:number=0;
     messageErreur:string;
@@ -109,10 +115,45 @@ export class ModeleService {
             return this.http.get(ModeleService.CARTE_URL_SINGLE + id + '/' + personne , { headers: this.headers});
 
         }
+
+
+		public searchCarteSinglePersonnel(id: number) {
+            return this.http.get(ModeleService.CARTE_URL_SINGLE_PERSONNEL + id, { headers: this.headers});
+
+        }
+
+		public searchCarteSinglePersonnelUpdate(id: number) {
+            return this.http.get(ModeleService.CARTE_URL_SINGLE_PERSONNEL_UPDATE + id, { headers: this.headers});
+
+        }
 		
         public searchAide(){
             return this.http.get(ModeleService.URL_AIDE , { headers: this.headers});
 
+        }
+
+        public pays(){
+            return this.http.get(ModeleService.URL_PAYS , { headers: this.headers});
+
+        }
+        public email(emailVerify:any){
+            return this.http.post(ModeleService.URL_EMAIL_VERIFY ,{email:emailVerify}, { headers: this.headers});
+
+        }
+        public codeVerify(emailVerify:any, codeVerify:any){
+            return this.http.post(ModeleService.URL_CODE_VERIFY ,{email:emailVerify,code:codeVerify}, { headers: this.headers});
+        }
+        public passWordReset(codeVerify:any,emailVerify:any,newPassword:any,repassword:any){
+            return this.http.post(ModeleService.URL_PASSWORD_RESET ,
+                {
+                 acces:'toget-me@resetPassword_auth_access',
+                 code:codeVerify,
+                 email:emailVerify,
+                 password:newPassword,
+                 repassword:repassword
+                },
+                 { headers: this.headers}
+                 );
         }
 
 
@@ -120,40 +161,13 @@ export class ModeleService {
 		dwd(){
 		let w = window.confirm("Une mise à jour est disponible pour cette application. Voulez vous mettre à jour cette version ?");
 		if(w){
-			// this.storage.set('UPLOAD', this.uploaded_val);
-			 // this.uploaded = false;
-			 // window.location="http://play.google.com/store/search?q=maps&c=apps";
+
 		}else{
 			
 		}
 	}
 	getUpload(){
-	/*	this.storage.get('UPLOAD').then(resp => {
-            if(resp >= 0){
-                this.uploaded = false;
-				this.param(1).subscribe((respis:any) => {
-						   if(respis){
-							   if(respis.status == 200){
-								   // console.log(0);
-								   if(respis.data[0].status_param > resp){
-									   // console.log(1);
-									   this.uploaded_val = respis.data[0].status_param;
-											this.uploaded = true;
-								   }
-							   }
-						   }
-				},err => {
-					console.log(err);
-				});
-            }else{
-				this.storage.set('UPLOAD', 0);
-				// console.log(2);
-			}
-        },(error)=>{ 
-		
-		console.log('error', error);
-		this.storage.set('UPLOAD', 0);
-		});*/
+
 	}
     public delete(id: any) {
         return this.http.delete(ModeleService.DELETE_ELEMENT + id, { headers: this.headers}).pipe(

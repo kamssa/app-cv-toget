@@ -1,34 +1,17 @@
 
 <ion-content>
-<ion-item lines="none">
- 
+  <ion-item lines="none">
 
-<img src="assets/logo/logo.png" style="margin-top: 20px; width:145px; margin: 0 auto; text-align:center; margin-top: 20px !important;">
+    <img src="assets/logo/logo.png" style="margin-top: 20px; width:145px; margin: 0 auto; text-align:center; margin-top: 20px !important;">
 
-<div *ngIf="!profil?.photos; else newPhoto">
-  <ion-avatar (click)="onModalPage()" *ngIf="validerTokenValue" color="light" slot="end" style=" padding:5px; margin:0px !important; position:absolute; right: 10px; top: 5px; border:1px solid #09c;">
-    <img src="{{link_img + profil?.photos}}" alt="{{((profil?.nom)? profil?.nom[0] : '@')}}" style="display:flex; text-transform:uppercase; justify-content:center; align-items:center; color:#09c;">
-  </ion-avatar>
-    <ion-button *ngIf="!validerTokenValue" slot="end" (click)="getRouteCollection();"  style="margin:0px !important; position:absolute; right: 10px; top: 5px; ">Connexion</ion-button>
-  </div>
-    <ng-template #newPhoto>
-      <ion-avatar (click)="onModalPage()" *ngIf="validerTokenValue" color="light" slot="end" style=" padding:5px; margin:0px !important; position:absolute; right: 10px; top: 5px; border:1px solid #09c;">
-        <img src="{{profil?.photos}}" alt="{{((profil?.nom)? profil?.nom[0] : '@')}}" style="display:flex; text-transform:uppercase; justify-content:center; align-items:center; color:#09c;">
-      </ion-avatar>
-      <ion-button *ngIf="!validerTokenValue" slot="end" (click)="getRouteCollection();"  style="margin:0px !important; position:absolute; right: 10px; top: 5px; ">Connexion</ion-button>
-    </ng-template>
+
+        <ion-avatar (click)="onModalPage()" *ngIf="validerTokenValue" color="light" slot="end" style=" padding:5px; margin:0px !important; position:absolute; right: 10px; top: 5px; border:1px solid #09c;">
+            <img src="{{link_img + dataProviderService.data?.photos}}" alt="{{((dataProviderService.data?.email[0])? dataProviderService.data?.email[0] : '@')}}" style="display:flex; text-transform:uppercase; justify-content:center; align-items:center; color:#09c;">
+        </ion-avatar>
+        <ion-button *ngIf="!validerTokenValue" slot="end" (click)="getRouteCollection();"  style="margin:0px !important; position:absolute; right: 10px; top: 5px; ">Connexion</ion-button>
+
+
 </ion-item>
-<!-- <ion-segment color="secondary" scrollable #id > -->
-  <!-- <ion-segment-button value="standard" checked  value="all"> -->
-    <!-- <ion-icon name="paper" style="color:#09c; "></ion-icon> <ion-label style=" text-transform: capitalize;">Tous</ion-label> -->
-  <!-- </ion-segment-button> -->
-  <!-- <ion-segment-button  value="entreprise"> -->
-     <!-- <ion-icon name="briefcase" style="color:#09c;"></ion-icon><ion-label style=" text-transform: capitalize;">Entreprise/ONG</ion-label> -->
-  <!-- </ion-segment-button> -->
-  <!-- <ion-segment-button  value="particulier"> -->
-   <!-- <ion-icon name="person" style="color:#09c;"></ion-icon> <ion-label style=" text-transform: capitalize;">Particulier</ion-label> -->
-  <!-- </ion-segment-button> -->
-<!-- </ion-segment> -->
 
 
 
@@ -40,7 +23,7 @@
     <ion-col>
           <div class="rech" >
             <div class="rech-fils1">
-            <input type="search" (keyup.enter)="onLaodCarteVisite(value.value, 'all')" class="rech-input"  #value value="" placeholder="Recherche..."/>
+            <input type="search" (keyup.enter)="onLaodCarteVisite(value.value, 'all')" class="rech-input"  #value value="" placeholder="Recherche ..."/>
             <ion-icon name="search" class="rech-icon-search"  (click)="onLaodCarteVisite(value.value, 'all')"></ion-icon>
             </div>
             </div>  
@@ -48,7 +31,7 @@
   </ion-row>
   <ion-row align-items-center>
       <div class="btn">
-          <ion-button shape="round" color="light" (click)="onLaodCarteVisite(value.value, 'all')" style=" text-transform: capitalize;">Lancer la recherche</ion-button>
+          <ion-button shape="round" color="light" (click)="onLaodCarteVisite(value.value, 'all')" style=" text-transform:initial;">Lancer la recherche</ion-button>
       </div>
   </ion-row>
 </ion-grid>
@@ -57,15 +40,22 @@
   <div class="md-card-cont">
     <div class="tlt" style="border: 0%">
     </div>
-    <ion-slides  class="demo-card" lines="inset" *ngIf="image?.length > 0">
+    <ion-slides  class="demo-card" lines="inset" *ngIf="cartes?.data?.length > 0">
 
 	  
-		  <ion-slide *ngFor="let img of image" >
-			<ion-card-content tappable (click)="openPreviewZOOM(img.image, {verify_photo : true}, false, true)">
-			  <img class="md-img" [src]="img.image" draggable="true" [alt]="img.title">
-			  <ion-card-title>{{img.title}}</ion-card-title>
+		  <ion-slide *ngFor="let img of cartes?.data; index as i" >
+			<ion-card-content   tappable (click)="openPreviewZOOM(link_img + img.model_images, {verify_photo : true, id_modele : img.model_id}, false, true)">
+			  <img class="md-img"  [src]="link_img + img.model_images" draggable="true" [alt]="(img?.model_libelle)? img?.model_libelle : 'Chargement des modèles...'">
+			  <ion-card-subtitle *ngIf="img?.model_statut == 0">Carte hors fonction </ion-card-subtitle>
+			  <ion-card-title> 
+			   <ion-icon ios="ios-arrow-back" md="md-arrow-back" style="color: #ddd; position: absolute; left:0;" *ngIf="i > 0 "></ion-icon>
+			  {{img.model_libelle}}
+			  <ion-icon ios="ios-arrow-forward" md="md-arrow-forward" style="color: #ddd; position: absolute; right: 0;" *ngIf=" i < (cartes?.data?.length - 1 )"></ion-icon>
+			  </ion-card-title>
 			  <ion-card-subtitle>{{img.dev}}</ion-card-subtitle>
+			
 			 </ion-card-content>
+				
 		  </ion-slide>
 
 

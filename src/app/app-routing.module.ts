@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import {AuthGardService} from './services/auth-gard.service';
+import {AuthGuardHistoriqueService} from './services/auth-guard-historique.service';
 import { TabsPage } from './tabs/tabs.page';
 const routes: Routes = [
   { path: 'tabs',
@@ -14,7 +15,7 @@ const routes: Routes = [
       {
         path: 'accueil',
         children: [
-          { path: '', loadChildren: './accueil/accueil.module#AccueilPageModule' }
+          { path: '', loadChildren: './accueil/accueil.module#AccueilPageModule', canActivate: [ AuthGuardHistoriqueService ] }
         ]
       },
       
@@ -22,14 +23,14 @@ const routes: Routes = [
         path: 'ma-collection',
         children: [
           {path: '', loadChildren: './ma-collection/ma-collection.module#MaCollectionPageModule',
-            canActivate: [ AuthGardService ]},
+            canActivate: [ AuthGardService, AuthGuardHistoriqueService ]},
         ]
       },
       
       {
         path: 'demande',
         children: [
-          { path: '', loadChildren: './commentaire/commentaire.module#CommentairePageModule' }
+          { path: '', loadChildren: './commentaire/commentaire.module#CommentairePageModule', canActivate: [ AuthGuardHistoriqueService ] }
         ]
       },
       
@@ -43,19 +44,19 @@ const routes: Routes = [
   {
     path: 'collection',
     children: [   
-      { path: '', loadChildren: './collection/collection.module#CollectionPageModule'
+      { path: '', loadChildren: './collection/collection.module#CollectionPageModule', canActivate: [  AuthGuardHistoriqueService ]
       }
     ]
   },
   { 
     path: 'register',
     loadChildren: './resgistration/register/register.module#RegisterPageModule',
-	   canActivate:[AuthGardService]
+	   canActivate:[AuthGardService, AuthGuardHistoriqueService]
    },
    { 
 	path: 'connexion', 
 	loadChildren: './resgistration/connexion/connexion.module#ConnexionPageModule',
-	canActivate:[AuthGardService]
+	canActivate:[AuthGardService, AuthGuardHistoriqueService]
      
    },
   {
@@ -65,10 +66,13 @@ const routes: Routes = [
   },
   { path: 'particulier',
    children:[
-     {path: '', loadChildren: './particulier/particulier.module#ParticulierPageModule'
+     {path: '', loadChildren: './particulier/particulier.module#ParticulierPageModule', canActivate: [  AuthGuardHistoriqueService ]
     }
    ]  
   },
+ 
+
+ 
   // { path: 'parametres', loadChildren: './components/parametres/parametres.module#ParametresPageModule' },
  // { path: 'a-props', loadChildren: './a-props/a-props.module#APropsPageModule' },
   //{ path: 'param', loadChildren: './param/param.module#ParamPageModule' },
@@ -107,7 +111,7 @@ const routes: Routes = [
   // { path: 'aide', loadChildren: './aide/aide.module#AidePageModule' },
   // { path: 'collection', loadChildren: './collection/collection.module#CollectionPageModule' },
   // { path: 'entreprise', loadChildren: './entreprise/entreprise.module#EntreprisePageModule' },
-  { path: 'presentation', loadChildren: './presentation/presentation.module#PresentationPageModule' },
+  { path: 'presentation', loadChildren: './presentation/presentation.module#PresentationPageModule', canActivate: [ AuthGuardHistoriqueService ] },
   // { path: 'single-carte', loadChildren: './single-carte/single-carte.module#SingleCartePageModule' },
   // { path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule' }
 ];

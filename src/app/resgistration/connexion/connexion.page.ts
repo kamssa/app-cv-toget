@@ -4,9 +4,12 @@ import {UserModel} from '../../models/user.model';
 import {Router} from '@angular/router';
 import {FormBuilder, Validators} from '@angular/forms';
 import {Storage} from '@ionic/storage';
+import { ModalController } from '@ionic/angular';
 import {MessageAlerteService} from '../../services/message-alerte.service';
 import {SpeechRecognition} from '@ionic-native/speech-recognition/ngx';
-import {Platform} from '@ionic/angular';
+import {LoadingController, Platform} from '@ionic/angular';
+import {ValiderTokenService} from '../../services/valider-token.service';
+import { ForgetComponent } from 'src/app/params/forget/forget.component';
 
 @Component({
     selector: 'app-connexion',
@@ -35,7 +38,10 @@ export class ConnexionPage implements OnInit {
         private messageAlerte: MessageAlerteService,
         private speechRecognition: SpeechRecognition,
         private platform: Platform,
-        private changeDetectorRef: ChangeDetectorRef
+        private modalCtrl: ModalController,
+        private changeDetectorRef: ChangeDetectorRef,
+        private loadingCtl: LoadingController,
+        private validerToken: ValiderTokenService
     ) {
       /*  this.platform.ready().then(() => {
             // Check feature available
@@ -51,7 +57,7 @@ export class ConnexionPage implements OnInit {
     ngOnInit() {
 
     }
-
+   
     public startListening(): void {
         this.isListening = true;
         this.matches = [];
@@ -128,4 +134,21 @@ export class ConnexionPage implements OnInit {
 
     };
 
+    async onForget(){
+        const modal = await this.modalCtrl.create({
+          component: ForgetComponent,
+     });
+  return await modal.present();
+  }
+  async showLoading(){
+    let loading = await this.loadingCtl.create({
+        message:"Chargement...",
+        duration: 2000,
+        showBackdrop: false,
+        spinner: "lines-small"
+    });
+    loading.present();
+
+
+}
 }

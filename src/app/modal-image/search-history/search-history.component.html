@@ -10,26 +10,29 @@
 </ion-header>
 <ion-content>
 
-  <ion-item-group *ngFor="let activites of activities | groupeBy: 'date_activity'">
-    <ion-item-divider>
-      <ion-label>{{activites.key}}</ion-label>
-      <ion-icon slot="end" name="trash"></ion-icon>
-    </ion-item-divider>
-    <ion-item *ngFor="let activite of activites.value">
-      <ion-label position="floating">Recherche
-        <ion-icon slot="end" name="more"></ion-icon>
-      </ion-label>
+  <!-- <ion-item-group *ngFor="let activites of activities | groupeBy: 'date'; index as i"> -->
+    <!-- <ion-item-divider> -->
+      <!-- <ion-label>{{activites.key}}</ion-label> -->
+      <!-- <ion-icon slot="end" name="trash" (click)="delete_all(activites.key);"></ion-icon> -->
+    <!-- </ion-item-divider> -->
+    <!-- <ion-item *ngFor="let activite of activites.value"> -->
+      <!-- <ion-label position="floating">Recherche -->
+        <!-- <ion-icon slot="end" name="more"></ion-icon> -->
+      <!-- </ion-label> -->
       
-      <p>
-        <span *ngIf="activite.type == 1">Carte visitée :</span>
-        <span *ngIf="activite.type == 0">Recherche de </span> <span><a [href]="activite.title">{{activite.title}}</a></span><br>
-        <span style="color:lightgray;font-size:small;">{{activite.time_activity}}</span>
-      </p>
-      <ion-thumbnail slot="end" *ngIf="activite.type == 1">
-        <ion-img src="/assets/image/2.png"></ion-img>
-      </ion-thumbnail>
-    </ion-item>
-  </ion-item-group>
+      <!-- <p> -->
+
+        <!-- <span >Page : </span> <span><a [href]="activite.lien" (click)="redirect(activite.lien); false;">{{activite.lien}}</a></span> -->
+        <!-- <span style="color:lightgray;font-size:small; float:right; position: absolute; right: 20px; bottom:0px;">{{activite.heure}}</span> -->
+		
+        <!-- <span class="btn" style="color:#aaa; font-size:30px; float:right; position: absolute; right: 10px; top:-10px;"> <ion-icon slot="end" name="trash" (click)="delete(activite.id);"></ion-icon></span> -->
+		
+      <!-- </p> -->
+      <!-- <ion-thumbnail slot="end" *ngIf="activite.type == 1"> -->
+        <!-- <ion-img src="/assets/image/2.png"></ion-img> -->
+      <!-- </ion-thumbnail> -->
+    <!-- </ion-item> -->
+  <!-- </ion-item-group> -->
   
   <!-- <ion-item-group>
     <ion-item-divider>
@@ -46,4 +49,68 @@
       <ion-label>Belgium</ion-label>
     </ion-item>
   </ion-item-group> -->
+  
+  
+  	  <section id="service">
+    <div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" >
+			
+                <!-- <div class="panel panel-default" > -->
+                    <!-- <div class="panel-heading" role="tab" id="headingOne"> -->
+                        <!-- <h4 class="panel-title"> -->
+                            <!-- <a role="button" (click)="false;"> -->
+                            
+                            <!-- </a> -->
+							 <!-- <ion-icon slot="end" name="trash" (click)="delete_all(activites.key);"></ion-icon> -->
+                        <!-- </h4> -->
+                    <!-- </div> -->
+                <!-- </div> -->
+				
+				 <div class="panel panel-default"  *ngFor="let activites of activities | groupeBy: 'date'; index as i">
+                    <div class="panel-heading" role="tab" id="headingTwo_{{i}}">
+                        <h4 class="panel-title">
+                            <a class="me_col" id="collapsed_{{i}}" role="button" (click)="showme('collapseTwo_' + i, 'collapseTwo', 'collapsed_'+i); false;" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+							<ion-icon slot="end" name="trash" (click)="delete_all(activites.key); false;"></ion-icon>
+                                Historique du : {{activites.key}}
+                            </a>
+                        </h4>
+                    </div>
+                    <div id="collapseTwo_{{i}}" class="collapseTwo panel-collapse in collapse show" role="tabpanel" aria-labelledby="headingTwo">
+                        <div class="panel-body">
+                            <div *ngFor="let activite of activites.value" style="position:relative; border-bottom: 1px solid #f2f2f2;">
+								  <p style="width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+									<span >Recherche : </span> <span><a [href]="activite.lien" (click)="redirect(activite.lien); false;">{{activite.recherche}}</a>
+									
+									</span>
+									<br/>
+									<span >Dans : </span> <span><a [href]="activite.lien" (click)="false;">{{activite.type}}</a> </span>
+								  </p>
+								
+									
+									<b (click)="redirect(activite.lien); false;" style="position:absolute; right:0; top:0; cursor:pointer; color:#ff6d05;">Atteindre</b>
+									<span style="color:lightgray;font-size:small; float:right; position: absolute; right: 20px; bottom:0px;">{{activite.heure}} &nbsp;&nbsp;&nbsp;<ion-icon style="color:#aaa; font-size:30px; " slot="end" name="trash" (click)="delete(activite.id); false;"></ion-icon></span>
+									
+									<span  style="color:#aaa; font-size:30px; float:right; position: absolute; right: 10px;" (click)=" false;"> 
+									<!-- <i class="fa fa-trash"></i> -->
+									
+									</span>
+									
+								  	
+							</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</section>
+<div style="display:flex; justify-content:center; font-size:20px;" *ngIf="!activities || activities?.length == 0">
+
+<span style="text-align:center;"> OUpsss, Historique Vide !</span>
+</div>
+
 </ion-content>

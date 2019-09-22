@@ -5,6 +5,7 @@ import { ModeleService } from '../services/modele.service';
 import {BehaviorSubject} from 'rxjs';
 import {LoadingController} from '@ionic/angular';
 import {ModalController} from '@ionic/angular';
+import * as $ from 'jquery';
 @Component({
   selector: 'app-aide',
   templateUrl: './aide.page.html',
@@ -70,10 +71,30 @@ export class AidePage implements OnInit {
 
 
 }
+
+   playAudio(){
+		let x   = <HTMLAudioElement> document.getElementById("myAudio"); 
+		x.play(); 
+		x.volume =0.1;
+			
+}
 closeModal(){
   this.modalCtrl.dismiss();
   
 }
+
+	showme(me, other, col){
+		
+		this.playAudio();
+		// $('.' + other).toggle(700);
+		$('#' + me).toggle(500);
+		// $('.me_col').addClass('collapsed');
+		$('#' + col).toggleClass('collapsed');
+		
+	}
+	
+	
+
 
 
 }

@@ -2,16 +2,18 @@
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/tabs/accueil"></ion-back-button>
+	  
   </ion-buttons>
+	  <ion-searchbar color="light" animated placeholder="Recherche par nom ..." #value [value]="" mode="ios" spellcheck="true" (keyup)="keyUpsearch(value?.value)" ></ion-searchbar>
 
-    <ion-title>
-     <h2>Ma collection</h2> 
-    </ion-title>
+    <!-- <ion-title> -->
+     <!-- <h2>Ma collection</h2>  -->
+    <!-- </ion-title> -->
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list >
-      <app-modele-carte [userFilter]="userFilter" (share)="share($event)"
+      <app-modele-carte [userFilter]="userFilter" [userCollectionFilter]="userCollectionFilter" (share)="share($event)"
                         (supprimer)="supprimer($event)"
                         [allData]="modeles" [Verify]="true" [actionS]="true">
       </app-modele-carte>

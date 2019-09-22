@@ -4,12 +4,13 @@
     <!-- <ion-button  fill="clear" color="light"> -->
 	    <ion-icon ios="ios-arrow-back" md="md-arrow-back" slot="start" style="font-size:25px;" (click)="close()" color="light"></ion-icon>
 		
-		<ion-icon ios="ios-download" md="md-download" slot="end" color="light" class="icone-top" (click)="downloadCarte(img);"></ion-icon>
+		<ion-icon ios="ios-download" md="md-download" slot="end" color="light" class="icone-top" (click)="downloadImg()"></ion-icon>
 		  <ion-icon ios="ios-call" md="md-call" slot="end" color="light" class="icone-top" (click)="presentActionSheetCall()"></ion-icon>
 		  <ion-icon ios="ios-mail" md="md-mail" slot="end" color="light" class="icone-top" (click)="presentActionSheetMail()"></ion-icon>
-		  <ion-icon ios="ios-share" md="md-share" slot="end" color="light" class="icone-top" (click)="presentActionSheetShare();"></ion-icon>
-		  <ion-icon ios="ios-lock" md="md-lock" slot="end"  color="light" class="icone-top" *ngIf="privated == true"></ion-icon>
-		  <ion-icon ios="ios-unlock" md="md-unlock" slot="end"  style="color:green" class="icone-top" *ngIf="privated == true"></ion-icon>
+		  <ion-icon ios="ios-share" md="md-share" slot="end" color="light" class="icone-top" (click)="presentActionSheetShare(img);"></ion-icon>
+		  
+		  <ion-icon ios="ios-lock" md="md-lock" slot="end"  color="light" class="icone-top" (click)="presentAlertCollectionPrivate();" *ngIf="privated == true &&  this.allData.private == 1"></ion-icon>
+		  <ion-icon ios="ios-unlock" md="md-unlock" slot="end"  style="color:green" (click)="presentAlertCollectionPrivate();" class="icone-top" *ngIf="privated == true && this.allData.private == 0"></ion-icon>
 		  
 		  
 		<ion-icon ios="ios-star" md="md-star" slot="end"  style="color:yellow;" (click)="presentAlertCollectionMessage()"  class="icone-top" *ngIf="suppr == false && requestP == 1"></ion-icon>
@@ -36,7 +37,7 @@
     <!-- </ion-button> -->
   </ion-toolbar>
   
-  
+ 
 </ion-header>
  
 
@@ -62,4 +63,6 @@
   </ion-slides>
   <!-- <A href="toget://tabs/ma-collection">Take QR Code</A> -->
   <!-- <A href="content://io.ionic.toget_me/ma-collection">Take QR Code2</A> -->
+  
+
 </ion-content>

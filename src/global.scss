@@ -12,15 +12,6 @@
 
 @import "~@mobiscroll/angular/dist/css/mobiscroll.scss";
 
-
-
-
-
-
-
-
-
-
 .upload{
 	color:#09c;
 	animation: rouge 0.5s infinite;
@@ -43,12 +34,6 @@
 50% { color:#ff6d05; } 
 100% { color:red; } 
 }
-
-
-
-
-
-
 .hi-icon {
   display: inline-block;
   font-size: 0px;
@@ -164,20 +149,6 @@
     opacity: 0;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 .cylon_eye {
   background-color: rgb(181,181,181);
   background-image: linear-gradient(to right, rgba( 181,181,181,0.9 ) 25%, rgba( 181,181,181,0.1 ) 50%, rgba( 181,181,181,0.9 ) 75%);

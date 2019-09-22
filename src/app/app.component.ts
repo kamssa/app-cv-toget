@@ -1,15 +1,16 @@
 import {Component, OnInit} from '@angular/core';
-
 import {Platform, ToastController} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
-
+import { Storage } from '@ionic/storage';
 import {Router, NavigationEnd} from '@angular/router';
 import {RegisterService} from './services/register.service';
 import {MessageAlerteService} from './services/message-alerte.service';
 import {ValiderTokenService} from './services/valider-token.service';
 import {OneSignal} from '@ionic-native/onesignal/ngx';
 import {SpeechRecognition} from '@ionic-native/speech-recognition/ngx';
+import {DataProviderService} from './services/data-provider.service';
+import {File} from '@ionic-native/file/ngx';
 
 const TOKEN_KEY = 'access_token';
 
@@ -18,6 +19,7 @@ const TOKEN_KEY = 'access_token';
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
+    validerPhotoValue: boolean;
     public appPages = [
         {
             title: 'Accueil',
@@ -49,13 +51,29 @@ export class AppComponent {
         private statusBar: StatusBar,
         private  auth: RegisterService,
         private router: Router,
+		private storage: Storage,
         private mesaageAlerte: MessageAlerteService,
         private validationToken: ValiderTokenService,
         private toastController: ToastController,
         private oneSignal: OneSignal,
-        private speechRecognition: SpeechRecognition
+        private speechRecognition: SpeechRecognition,
+        public dataProviderService: DataProviderService,
+        public file: File
     ) {
         this.initializeApp();
+        this.dataProviderService.loadData();
+        
+
+
+    }
+    ionViewWillEnter(){
+        this.dataProviderService.loadData();
+
+        this.dataProviderService.valeurPhoto.subscribe(resp => {
+            this.validerPhotoValue = resp;
+            console.log('valeur app component de dataphoto dan localS', this.validerPhotoValue);
+        });
+
     }
  ngOnInit() {
 	 				
@@ -73,17 +91,56 @@ export class AppComponent {
                 }
             }, 16); 
         });
+        this.platform.ready().then(() => {
+            if(this.platform.is('android')) {
+                this.file.checkDir(this.file.externalRootDirectory, 'Togetme').then(response => {
+                    console.log('Directory exists');
+                }).catch(err => {
+                    console.log('Directory doesn\'t exist');
+                    this.file.createDir(this.file.externalRootDirectory, 'Togetme', false).
+                    then(response => {
+                        console.log('Directory create');
+                    }).catch( err => {
+                        console.log('Directory no create' + JSON.stringify(err));
+                       
+                    });
+                });
+            }
+        });
 		
     }
+	
+	
+	begining(){
+		this.storage.get('ACCESS_BEGIN').then(val => {
+			if(val == true){
+				this.router.navigate(['tabs/accueil']);
+				
+
+				
+			}else{
+				this.router.navigate(['/presentation']);
+
+			}
+        }, error=>{
+				this.router.navigate(['/presentation']);
+
+			
+		});
+	}
     initializeApp() {
 
         this.splashScreen.show();
         let u = this;
 
         window.onload = (e) => {
-            u.loading = false;
-            this.statusBar.styleDefault();
-            this.splashScreen.hide();
+			this.begining();
+			
+			setTimeout(()=>{
+					u.loading = false;
+					this.statusBar.styleDefault();
+					this.splashScreen.hide();				
+			},2000);
         };
 
         this.platform.ready().then(() => {

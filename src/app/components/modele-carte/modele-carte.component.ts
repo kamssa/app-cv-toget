@@ -4,6 +4,7 @@ import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import {Platform} from '@ionic/angular';
 import {EntreprisePage} from '../../entreprise/entreprise.page';
 import {OutilService} from '../../parametre/outil.service';
+import {RegisterService} from '../../services/register.service';
 @Component({
   selector: 'app-modele-carte',
   templateUrl: './modele-carte.component.html',
@@ -43,7 +44,9 @@ export class ModeleCarteComponent implements OnInit {
   @Input('privatedMe') privatedMe: boolean;
   @Input('marge') marge: boolean;
   @Input('user') user: boolean;
+  @Input('activeToolBar') activeToolBar = false;
   @Input('userFilter') userFilter:any={person_service : ''};
+  @Input('userCollectionFilter') userCollectionFilter:any={};
   @Output() share = new  EventEmitter<any>();
   @Output() ajouter = new  EventEmitter<any>();
   @Output() supprimer = new  EventEmitter<any>();
@@ -54,7 +57,7 @@ export class ModeleCarteComponent implements OnInit {
 	loadingBar = true;
 	
   constructor(private photoViewer: PhotoViewer,private platform: Platform, private modalController: ModalController, private outil : OutilService,
-    private loadingCtl: LoadingController) { this.showLoading();  this.ionViewWillEnter();}
+    private loadingCtl: LoadingController, public registerService : RegisterService) { this.showLoading();  this.ionViewWillEnter();}
 
   ngOnInit() {
 				  // console.log('azerty');
@@ -139,10 +142,39 @@ export class ModeleCarteComponent implements OnInit {
    }
    
    
-    openPreview(img, allData:any={}, suppr=false, active=false,privates=false, id, personne) {
-		console.log(id);
-		console.log(personne);
+    openPreview(img, allData:any={}, suppr=false, active=false,privates=false, id, personne, position) {
+		// console.log(id);
+		// console.log(personne);
 		this.outil.openPreview(img, allData, suppr, active, privates, id, personne);
+		// let f = this.allData.data.splice(position, 0);
+		// console.log(f);
+		// console.log(this.registerService.comunication);
+		// this.registerService.comunication = 0;
   }
+  
+  
+  checker(param):boolean{
+	  // if(this.registerService.comunication && this.registerService.comunication.length > 0){}
+	  if(this.registerService.comunication.indexOf(param) != -1)
+		{  
+		   return true
+		}else{
+			return false;
+		}
+		
+		if(this.registerService.comunication.length === this.allData.data.length){
+			this.allData.data = [];
+		}
+  }
+  
+  
+  in_array(needle, haystack){
+    let found = 0;
+    for (let i=0, len=haystack.length;i<len;i++) {
+        if (haystack[i] == needle) return i;
+            found++;
+    }
+    return -1;
+	}
 
 }
