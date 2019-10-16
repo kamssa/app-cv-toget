@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, NavController, LoadingController  } from '@ionic/angular';
-import {Router, Route} from '@angular/router';
-// import { GroupeBy } from '../../pipes/groupe-by.pipe';
-import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
+
+
 import {Storage} from '@ionic/storage';
 import * as $ from 'jquery';
 const HISTORIQUE_KEY = 'access_Historique';
 export class Activite{
   id?: number;
-  lien?: string;
   date?: string;
-  heure?: string;
+
 }
 @Component({
   selector: 'app-search-history',
@@ -24,7 +23,7 @@ export class SearchHistoryComponent implements OnInit {
 
   ngOnInit() {
 		this.getHistorie();
-    // console.log(this.activities);
+
   }
   
 	async showLoading(){
@@ -53,7 +52,7 @@ export class SearchHistoryComponent implements OnInit {
 			}
         }, error=>{
 				this.activities = [];
-				// this.storage.set('ACCESS_BEGIN', 1);
+
 			
 		});  
   }
@@ -70,7 +69,7 @@ export class SearchHistoryComponent implements OnInit {
 		this.storage.set(HISTORIQUE_KEY, this.activities);
   }
   redirect(param){
-		// window.open(param);
+
 		this.router.navigateByUrl(param);
 		sessionStorage.setItem('REDIRECT', '1');
 		this.modalCtrl.dismiss().then(()=>{
@@ -83,11 +82,8 @@ export class SearchHistoryComponent implements OnInit {
 
 	showme(me, other, col){
 		
-		// this.playAudio();
-		// $('.' + other).toggle(700);
-		$('#' + me).toggle(500);
-		// $('.me_col').addClass('collapsed');
-		$('#' + col).toggleClass('collapsed');
+  	$('#' + me).toggle(500);
+  	$('#' + col).toggleClass('collapsed');
 		
 	}
 }

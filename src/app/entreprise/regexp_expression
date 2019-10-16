@@ -1,0 +1,25 @@
+1) USER_NAME = "^[A-Za-z0-9_-]{min number of character,max number of character}$";
+
+2) TELEPHONE = "(^\\+)?[0-9()-]*";
+
+3) TELEPHONE_OPTIONAL = "^($|(^\\+)?[0-9()-]*)$";
+
+4) EMAIL = "[a-zA-Z0-9_\\.\\+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-\\.]+";
+
+5) EMAIL_OPTIONAL = "^($|[a-zA-Z0-9_\\.\\+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-\\.]+)$";
+
+6) WEB_URL = "^($|(http:\\/\\/|https:\\/\\/)?(www.)?([a-zA-Z0-9]+).[a-zA-Z0-9]*.[a-z]{3}.?([a-z]+)?)$";
+
+7) WEB_URL_YOUTUBE_BE = "https?\\:\\/\\/(www\\.)?youtu(\\.)?be(\\.com)?\\/.*(\\?v=|\\/v\\/)?[a-zA-Z0-9_\\-]+";
+
+8) POSTAL_ADDRESS = "[a-zA-Z\\d\\s\\-\\,\\#\\.\\+]+";
+
+9) FIELD_NOT_EMPTY = "[^\\s]*";
+
+10) PINCODE = "^([0-9]{6})?$";
+
+11) IFSC_CODE = "^[^\\s]{4}\\d{7}$";
+
+12) SWIFT_CODE = "^([0-9]{10})?$";
+
+13) PINCODE = "^([0-9]{6})?$";

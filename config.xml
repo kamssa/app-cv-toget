@@ -1,8 +1,8 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="pro.toget.togetme" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="pro.toget.togetme" version="3.0.8" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>togetme</name>
     <description>Application de gestion de caret de visite.</description>
-    <author email="info@toget-me.pro" href="https://www.toget-me.pro">Toget-me Team</author>
+    <author email="info@toget-me.pro" href="https://www.toget-me.pro">Toget Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
@@ -24,6 +24,7 @@
     <platform name="android">
         <preference name="loadUrlTimeoutValue" value="700000" />
         <edit-config file="app/src/main/AndroidManifest.xml" mode="merge" target="/manifest/application" xmlns:android="http://schemas.android.com/apk/res/android">
+            <application android:usesCleartextTraffic="true" />
         </edit-config>
         <allow-intent href="market:*" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />

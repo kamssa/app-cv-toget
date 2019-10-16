@@ -8,10 +8,7 @@ import { IonicModule } from '@ionic/angular';
 import { ListeServicePage } from './liste-service.page';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: ListeServicePage
-  // }
+
 ];
 
 @NgModule({

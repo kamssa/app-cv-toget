@@ -5,7 +5,7 @@ import { AppConfig } from '../parametre/config';
 import { Storage } from '@ionic/storage';
 import {ValiderTokenService} from './valider-token.service';
 import { Platform} from '@ionic/angular';
-import {catchError, tap} from 'rxjs/operators';
+import { tap} from 'rxjs/operators';
 import {Router} from '@angular/router';
 import {DataProviderService} from './data-provider.service';
 const TOKEN_KEY = 'access_token';

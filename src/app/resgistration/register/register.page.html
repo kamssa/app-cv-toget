@@ -16,10 +16,7 @@
         <form [formGroup]="registerForm">
         <ion-item>
           <ion-label position="floating">Votre pays</ion-label>
-          <!-- <ion-select name="pays" formControlName="indicatif" required interface="action-sheet" (ionChange)="setNumeroFocus($event.target.value)"> -->
-            <!-- <ion-select-option value="{{pay?.pays_indicatif}}+{{pay?.pays_libelle}}" *ngFor="let pay of pays?.data; index as i">{{pay?.pays_libelle}} ({{pay?.pays_indicatif}})</ion-select-option> -->
 
-          <!-- </ion-select> -->
 		  <ionic-selectable
 			formControlName="indicatif"
 			required
@@ -36,10 +33,9 @@
         <ion-item>
 
           <ion-label position="floating">Votre numéro</ion-label>
-          <ion-input name="numero" id="numero_me_toget" formControlName="tel" type="number" required #numero>
+          <ion-input name="numero" id="numero_me_toget" formControlName="tel" type="tel" required #numero>
             <div>{{indicatif}}</div>
           </ion-input>
-          <!-- <ion-input type="text" formControlName="tel" ></ion-input> -->
 
         </ion-item>
             <div>
@@ -88,25 +84,6 @@
         </form>
     </ion-card>
 </div>
-
-<!-- <ion-item> -->
-  <!-- <ionic-selectable -->
-    <!-- [(ngModel)]="pays" -->
-    <!-- [items]="pays.data" -->
-    <!-- itemValueField="pays_id" -->
-    <!-- itemTextField="pays_indicatif" -->
-    <!-- itemTextField="pays_libelle" -->
-    <!-- [canSearch]="true" -->
-    <!-- (onChange)="portChange($event)"> -->
-	
-  <!-- </ionic-selectable> -->
-<!-- </ion-item> -->
-  
-
-
-
-
-
 
 
 </ion-content>

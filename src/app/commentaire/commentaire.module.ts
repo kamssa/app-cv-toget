@@ -19,7 +19,7 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
-    ReactiveFormsModule,ComponentsModule,
+    ReactiveFormsModule, ComponentsModule,
     RouterModule.forChild(routes)
   ],
   declarations: [CommentairePage]

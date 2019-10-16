@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { NavController } from '@ionic/angular';
 import { IonSlides } from '@ionic/angular';
@@ -12,16 +12,6 @@ import { IonSlides } from '@ionic/angular';
 export class PresentationPage implements OnInit {
 @ViewChild('slides', {static: false}) slides : IonSlides;
   splash = true;
-  secondPage = PresentationPage;
-
-  sliderViewOpts={
-    // zoom: false,
-    slidesPreview: 1.5,
-    centerSlides: true,
-    spaceBetween: 20,
-    itemWidth:500,
-    // snap: false,
-  }
 
   image = [{
     image: 'assets/logo/logo.png',
@@ -38,8 +28,7 @@ export class PresentationPage implements OnInit {
     title: 'Avec Toget-me,',
     dev: 'vos clients, partenaires, collègues et amis ne vous perdent jamais.',
     url: '/accueil',
-    // rank: 'Suivant'
-    // rank: 'suivant ->',
+
 }];
 
 public hide:number;
@@ -50,9 +39,7 @@ public hide:number;
     public navCtrl: NavController 
   ) { }
   
-  // ionViewDidLoad() {
-  //   setTimeout(() => this.splash = false, 4000);
-  // }
+
   ngOnInit() {
   }
   goTo(){

@@ -1,14 +1,13 @@
 import { DataProviderService } from './../../services/data-provider.service';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-// import { ModalController } from '@ionic/angular';
-import {NavParams, ModalController, IonInfiniteScroll, ToastController, LoadingController} from '@ionic/angular';
+
+import { ModalController,  ToastController, LoadingController} from '@ionic/angular';
 import { Router } from '@angular/router';
 import { ModeleService } from 'src/app/services/modele.service';
 import {Storage} from '@ionic/storage';
 import { ValiderTokenService } from 'src/app/services/valider-token.service';
 
-const  DATA_KEY = 'access_data';
-const TOKEN_KEY = 'access_token';
+
 @Component({
   selector: 'app-mes-cartes',
   templateUrl: './mes-cartes.component.html',
@@ -37,13 +36,7 @@ userCollectionFilter:any={person_nom_phonetique : ''};
   
     keyUpsearch(param){
 	  this.userCollectionFilter.person_nom_phonetique = param;
-	  // this.userCollectionFilter.date_ajout = param;
-	  // this.userCollectionFilter.person_code = param;
-	  // this.userCollectionFilter.person_tel_perso = param;
-	  // this.userCollectionFilter.person_tel_profe = param;
-	  // this.userCollectionFilter.person_email = param;
-	  // this.userCollectionFilter.person_site_web = param;
-	  // console.log(param);
+
   }
   closeModal(){
     this.modalCtrl.dismiss();

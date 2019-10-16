@@ -18,10 +18,7 @@ import { GroupeByPipe } from '../pipes/groupe-by.pipe';
 import {EditProfilPage} from './edit-profil/edit-profil.page';
 
 const routes: Routes = [
- // {
-   // path: '',
-//    component: ModalImagePage
- // }
+
 ];
 
 @NgModule({

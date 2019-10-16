@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { IonicModule, ModalController } from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 
 import { AccueilPage } from './accueil.page';
 import { HttpClientJsonpModule, HttpClientModule } from '@angular/common/http';
-import { MaCollectionPage } from '../ma-collection/ma-collection.page';
+
 import {ModalImagePage} from '../modal-image/modal-image.page';
 import {ModalImagePageModule} from '../modal-image/modal-image.module';
 import {ComponentsModule} from '../components/components.module';
-
+import {ExampleCarteComponent} from '../components/example-carte/example-carte.component';
 
 @NgModule({
-  entryComponents:[ModalImagePage],
+  entryComponents:[ModalImagePage, ExampleCarteComponent],
   imports: [
     CommonModule,
     FormsModule,

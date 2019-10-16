@@ -1,23 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import {AlertController} from '@ionic/angular';
 import {RegisterService} from '../../services/register.service';
-import {PaysComponent} from '../../pays/pays.component';
 import {UserModel} from '../../models/user.model';
 import { Router } from '@angular/router';
 import { ModeleService } from '../../services/modele.service';
-// import {FormBuilder, Validators} from '@angular/forms';
+
 import {MessageAlerteService} from '../../services/message-alerte.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { SearchCountryField, TooltipLabel, CountryISO } from 'ngx-intl-tel-input';
-import { CountryPickerService, ICountry } from 'ngx-country-picker';
+
+import {  ICountry } from 'ngx-country-picker';
 import * as $ from 'jquery';
-class Port {
-	public pays_id: number;
-	public pays_code :any;
-	public pays_indicatif:any;
-	public pays_libelle:any;
-	public status: number;
-}
 
 @Component({
   selector: 'app-register',
@@ -36,7 +28,7 @@ export class RegisterPage implements OnInit {
   pays:any=[];
   //registerForm: FormGroup;
   @ViewChild('numero', { static: false }) numero: any;
-    // @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll :IonInfiniteScroll;
+
   public countries: ICountry[] = [];
   
    registerForm : FormGroup = this.fb.group({
@@ -75,7 +67,6 @@ export class RegisterPage implements OnInit {
     if (this.registerForm.value.password !== this.registerForm.value.repassword) {
         this.messageAlerte.presentAlert('Erreur', 'Le mot de passe ne correspond pas à la confirmation.');
     } else {
-      // this.registerForm.setValue({'tel':this.registerForm.value.indicatif+''+this.registerForm.value.tel});
       this.registerForm = this.fb.group({
         // id_user: new FormControl(this.registerForm.value.id_user),
           tel: new FormControl(this.registerForm.value.tel),
@@ -93,8 +84,7 @@ export class RegisterPage implements OnInit {
           console.log(data['status']);
           this.createSuccess = true;
           this.messageAlerte.presentToast("Compte crée avec succes");
-           //this.message.presentAlert('Success', 'Compte crée avec succes.');
-          // this.router.navigate(['tabs/accueil']);
+
         } else {
           let message = this.user = data['message'];
           this.messageAlerte.presentAlert('', message);
@@ -176,9 +166,7 @@ validation_messages = {
     setNumeroFocus(event){
 		console.log(event.pays_indicatif);
 		$('#numero_me_toget').focus();
-      // this.numero.focus = true;
-	  // this.registerForm.setValue({indicatif : event.pays_indicatif});
-	 // this.registerForm.value.indicatif = event.pays_indicatif;
+
       this.indicatif = event.pays_indicatif;
       
     }

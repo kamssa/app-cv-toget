@@ -67,13 +67,7 @@ export class AuthGardService implements CanActivate{
          }
        // });
      }
-     isAuthenticated(){
 
-       return this.authenticationState.value;
-     }
-	 
-	 
-	 
 }
 
 

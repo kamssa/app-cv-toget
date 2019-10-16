@@ -1,17 +1,17 @@
 import { Directive, ElementRef } from '@angular/core';
 import Hammer from 'hammerjs';
-//declare var Hammer:any;
+
 
 @Directive({
     selector: '[Zoom-Carte]'
 })
 export class ZoomCarteDirective {
     private element: any;
-    Hammer:any;
+
     public isZoomed: boolean;
 
     constructor(el: ElementRef) {
-		// el.nativeElement.style.backgroundColor = 'yellow';
+
         this.element = el.nativeElement;
         this.setZoomed(false);
 

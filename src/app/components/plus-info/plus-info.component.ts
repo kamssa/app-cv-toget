@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, AlertController } from '@ionic/angular';
-import {ComptePage} from '../../compte/compte.page';
+
 import {ParametresPage} from '../parametres/parametres.page';
 import {AidePage} from '../../aide/aide.page';
 import {APropsPage} from '../../a-props/a-props.page';
-import { Platform ,ToastController} from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { Platform ,ToastController} from '@ionic/angular';
   styleUrls: ['./plus-info.component.scss'],
 })
 export class PlusInfoComponent implements OnInit {
-  public counter=0;
+
   constructor(private modalController: ModalController, private platform: Platform,
     public alertCtrl: AlertController) { }
       
@@ -27,13 +27,7 @@ ngOnInit() {}
     });
     return await modal.present();
   }
-  async onProfile(){
-    const modal = await this.modalController.create({
-      component: ComptePage,
-     
-    });
-    return await modal.present();
-  }
+
   async onAide(){
     const modal = await this.modalController.create({
       component: AidePage

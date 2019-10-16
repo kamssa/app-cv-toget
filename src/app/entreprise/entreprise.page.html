@@ -1,7 +1,6 @@
 <ion-content style="background:transparent !important;" fullscreen>
 <ion-header>
   <ion-toolbar *ngIf="active == false">
-    <!-- <ion-button  fill="clear" color="light"> -->
 	    <ion-icon ios="ios-arrow-back" md="md-arrow-back" slot="start" style="font-size:25px;" (click)="close()" color="light"></ion-icon>
 		
 		<ion-icon ios="ios-download" md="md-download" slot="end" color="light" class="icone-top" (click)="downloadImg()"></ion-icon>
@@ -20,11 +19,9 @@
 		  
 		  <ion-icon ios="ios-trash" md="md-trash" slot="end" (click)="presentAlertCollectionDelete();"  color="light" class="icone-top" *ngIf="suppr == true"></ion-icon>
 		    <ion-icon ios="ios-more" md="md-more" slot="end"  color="light" class="icone-top" (click)="presentActionSheet($event);" style="margin-right:5px;"></ion-icon>
-    <!-- </ion-button> -->
   </ion-toolbar>
 
   <ion-toolbar *ngIf="active == true">
-    <!-- <ion-button  fill="clear" color="light"> -->
 	    <ion-icon ios="ios-close" md="md-close" slot="start" style="font-size:25px;" (click)="close()" color="light"></ion-icon>
 		
 		
@@ -34,7 +31,6 @@
 			</ion-button>
 	
 	
-    <!-- </ion-button> -->
   </ion-toolbar>
   
  
@@ -55,14 +51,12 @@
   <ion-slides [options]="sliderOpts" #slider *ngIf="allData?.verify_photo == false">
     <ion-slide>
       <div class="swiper-zoom-container" style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; flex-direction: column;">
-	   <!-- <ion-icon ios="ios-code-download" md="md-code-download" ></ion-icon> -->
 	   <ion-icon ios="ios-clock" md="md-clock" color="light" style="font-size:200px;"></ion-icon>
        <p style="color:#fff; ">Cette carte est en cours de création...</p>
       </div>
     </ion-slide>
   </ion-slides>
-  <!-- <A href="toget://tabs/ma-collection">Take QR Code</A> -->
-  <!-- <A href="content://io.ionic.toget_me/ma-collection">Take QR Code2</A> -->
+
   
 
 </ion-content>

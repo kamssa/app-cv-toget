@@ -1,28 +1,23 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, ChangeDetectorRef} from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 import {MessageAlerteService} from '../services/message-alerte.service';
 import {RegisterService} from '../services/register.service';
-import { Color } from '@mobiscroll/angular/src/js/classes/color';
-import { ToastController, Platform, LoadingController, AlertController } from '@ionic/angular';
+import {ToastController, LoadingController, AlertController} from '@ionic/angular';
 
 
 @Component({
-  selector: 'app-commentaire',
-  templateUrl: './commentaire.page.html',
-  styleUrls: ['./commentaire.page.scss'],
+    selector: 'app-commentaire',
+    templateUrl: './commentaire.page.html',
+    styleUrls: ['./commentaire.page.scss'],
 })
 export class CommentairePage implements OnInit {
-  user: any;
-  cartes:any;
+    user: any;
+    cartes: any;
     createSuccess: any;
     choix_communication: string = '';
     status: number = 1;
-    choix: any = [
-        {name:'whatsapp',icone:'logo-whatsapp', color:'#25d366'},
-        {name:'sms',icone:'chatbubbles', color:'#1e90ff'},
-        {name:'mail',icone:'mail', color:'#DA3119'}
-    ];
+
     commentaireForm = this.fb.group({
         nom: ['', Validators.required],
         prenom: ['', Validators.required],
@@ -37,55 +32,54 @@ export class CommentairePage implements OnInit {
 
     });
 
-	userFilter:any={person_service : ''};
-	userCollectionFilter:any={person_nom_phonetique : ''};
+    userFilter: any = {person_service: ''};
+    userCollectionFilter: any = {person_nom_phonetique: ''};
+
     constructor(
         private registerService: RegisterService,
         private router: Router,
         private fb: FormBuilder,
-        private message: MessageAlerteService,public alertController: AlertController,
+        private message: MessageAlerteService, public alertController: AlertController,
         public toastController: ToastController,
         private loadingCtl: LoadingController, private changeDetectorRef: ChangeDetectorRef) {
-            // this.presentToast();
-            this.showLoading();
-			this.getModele();
+
+        this.showLoading();
+        this.getModele();
     }
+
     ionViewWillEnter() {
 
-			 this.getModele();
-            this.changeDetectorRef.detectChanges();
-         
-         
-	}
-ngOnInit()
-{
-	let u = this;
-	
-	// document.addEventListener("backbutton", u.onBackKeyDown(), false);
-}
+        this.getModele();
+        this.changeDetectorRef.detectChanges();
 
-  
-public valider()
-{
-    console.log(this.commentaireForm.value);
-    this.registerService.demande(this.commentaireForm.value).subscribe(data => {
-            if (data) {
-                this.user = data;
-                this.createSuccess = true;
-                this.presentToast('Votre demande a été envoyée crée avec succes. ');
 
-            } else {
-                console.log('operation impossible');
-            }
-        },
-        error => {
-            console.log('erreur ');
-        });
+    }
 
-}
-radioChangeHandler(event: any) {
-this.choix_communication = event.target.value;
-}
+    ngOnInit() {
+        let u = this;
+
+
+    }
+
+
+    public valider() {
+        console.log(this.commentaireForm.value);
+        this.registerService.demande(this.commentaireForm.value).subscribe(data => {
+                if (data) {
+                    this.user = data;
+                    this.createSuccess = true;
+                    this.presentToast('Votre demande a été envoyée crée avec succes. ');
+
+                } else {
+                    console.log('operation impossible');
+                }
+            },
+            error => {
+                console.log('erreur ');
+            });
+
+    }
+
     async presentToast(text: string) {
         const toast = await this.toastController.create({
             message: text,
@@ -93,151 +87,149 @@ this.choix_communication = event.target.value;
         });
         toast.present();
     }
-    async showLoading(){
+
+    async showLoading() {
         let loading = await this.loadingCtl.create({
-            message:"Chargement...",
+            message: 'Chargement...',
             duration: 1000,
             showBackdrop: false,
-            spinner: "lines-small"
+            spinner: 'lines-small'
         });
         loading.present();
-    
-    
+
+
     }
-  
-  getModele(){
 
-                this.registerService.modele().subscribe(resp => {
-                       if(resp['status'] === 200){
-                           this.cartes = resp;
-						   // this.cartes['data'] = {};
-						   this.cartes['data'] = resp['data'].map(x => (x.model_statut == 1)? x : '');
-						   this.cartes['data'] = this.cartes['data'].filter( function(val){return val !== ''} );
-						   this.cartes = Object.assign(this.cartes, {verify_photo : true});
-						   
-                       } else {
-                          // this.presentToasts('Une erreur est survenue. Veuillez réessayer ');
-                       }
+    getModele() {
 
-                    },err => {
-                         // this.presentToasts('erreur, Veuillez verifier votre connexion internet! ');
-                    });
+        this.registerService.modele().subscribe(resp => {
+            if (resp['status'] === 200) {
+                this.cartes = resp;
 
-            
-  }
-  
-  
-  
-  
-  async presentAlertPrompt() {
-		// let aaa= this.img;
-    const alert = await this.alertController.create({
-      header: 'Formulaire de Demande Personnalisée',
-	  message: 'Modèle Personnel',
-	  mode: 'ios',
-      inputs: [
-            {
-          name: 'nom',
-          type: 'text',
-          placeholder: 'Nom complet exemple : jhon doe'
-        },
-        {
-          name: 'telephone',
-          type: 'number',
-          placeholder: 'Téléphone exemple : 02020202'
-        },
-        {
-          name: 'email',
-          type: 'text',
-          placeholder: 'Email : jhondoe@exemple.com'
-        }
-      ],
-      buttons: [
-        {
-          text: 'annuler',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Valider',
-          handler: (data) => {
-            console.log('Confirm Ok', '');
-			  if(typeof data!=null ){
-				  
-				  if(this.isEmail(data.email) == false && data.nom.length ==0 && data.telephone.length ==0 ){
-					   this.presentToast( "Erreur. Veuillez remplir les champs svp !");
-						return false;
-				  }
+                this.cartes['data'] = resp['data'].map(x => (x.model_statut == 1) ? x : '');
+                this.cartes['data'] = this.cartes['data'].filter(function(val) {
+                    return val !== '';
+                });
+                this.cartes = Object.assign(this.cartes, {verify_photo: true});
 
-				  if(data.nom.length < 3){
-					   this.presentToast( "Erreur. champs nom mini 3 caractères !");
-						return false;
-				  }
+            } else {
 
-				  if(data.telephone.length < 8 && !isNaN(data.telephone)){
-					   this.presentToast( "Erreur. Verifier votre telephone svp !");
-						return false;
-				  }
+            }
 
-				  
-				  if(this.isEmail(data.email) == false ){
-					   this.presentToast( "Erreur. Verifier votre email svp !");
-						return false;
-				  }
-				  
-				  // let modele:any={id_modele: this.allData.id_modele};
-				  let all : any = data;
-						console.log(all);
-						this.requestDemande(all);
-                }else{
-					this.presentToast( "Erreur. Veuillez remplir les champs svp !");
-					return false;
-				}
-          }
-        }
-      ]
-    });
+        }, err => {
 
-    await alert.present();
-  }
-  
-     isEmail(search:string):boolean
-    {
-        let  serchfind:boolean;
+        });
+
+
+    }
+
+
+    async presentAlertPrompt() {
+
+        const alert = await this.alertController.create({
+            header: 'Formulaire de Demande Personnalisée',
+            message: 'Modèle Personnel',
+            mode: 'ios',
+            inputs: [
+                {
+                    name: 'nom',
+                    type: 'text',
+                    placeholder: 'Nom complet exemple : jhon doe'
+                },
+                {
+                    name: 'telephone',
+                    type: 'number',
+                    placeholder: 'Téléphone exemple : 02020202'
+                },
+                {
+                    name: 'email',
+                    type: 'text',
+                    placeholder: 'Email : jhondoe@exemple.com'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'annuler',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                    handler: () => {
+                        console.log('Confirm Cancel');
+                    }
+                }, {
+                    text: 'Valider',
+                    handler: (data) => {
+                        console.log('Confirm Ok', '');
+                        if (typeof data != null) {
+
+                            if (this.isEmail(data.email) == false && data.nom.length == 0 && data.telephone.length == 0) {
+                                this.presentToast('Erreur. Veuillez remplir les champs svp !');
+                                return false;
+                            }
+
+                            if (data.nom.length < 3) {
+                                this.presentToast('Erreur. champs nom mini 3 caractères !');
+                                return false;
+                            }
+
+                            if (data.telephone.length < 8 && !isNaN(data.telephone)) {
+                                this.presentToast('Erreur. Verifier votre telephone svp !');
+                                return false;
+                            }
+
+
+                            if (this.isEmail(data.email) == false) {
+                                this.presentToast('Erreur. Verifier votre email svp !');
+                                return false;
+                            }
+
+
+                            let all: any = data;
+                            console.log(all);
+                            this.requestDemande(all);
+                        } else {
+                            this.presentToast('Erreur. Veuillez remplir les champs svp !');
+                            return false;
+                        }
+                    }
+                }
+            ]
+        });
+
+        await alert.present();
+    }
+
+    isEmail(search: string): boolean {
+        let serchfind: boolean;
 
         let regexp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
         serchfind = regexp.test(search);
 
-        console.log(serchfind)
-        return serchfind
+        console.log(serchfind);
+        return serchfind;
     }
-	
-	
-	
-	  requestDemande(data:any={}){
-				
 
 
-			if (data) {
-					  this.registerService.demande(data).subscribe(response => {
-						  if(response && response['status'] == 200){
-									 this.presentToast( "Succès, Votre demande a été envoyée et est en cours de traitement !");
-						  }else{
+    requestDemande(data: any = {}) {
 
-							  this.presentToast( "Erreur. Le serveur met trop de temps a repondre veuillez réessayer !");
-						  }
-					  }, 
-					  error => {
 
-						   this.presentToast( "Erreur. Verifier votre connexion internet !");
-					  });
-			}
+        if (data) {
+            this.registerService.demande(data).subscribe(response => {
+                    if (response && response['status'] == 200) {
+                        this.presentToast('Succès, Votre demande a été envoyée et est en cours de traitement !');
+                    } else {
 
-	  
-  }
-      
-    
+                        this.presentToast('Erreur. Le serveur met trop de temps a repondre veuillez réessayer !');
+                    }
+                },
+                error => {
+
+                    this.presentToast('Erreur. Verifier votre connexion internet !');
+                });
+        }
+
+
+    }
+
+
 }

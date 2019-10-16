@@ -18,11 +18,11 @@ export class APropsPage implements OnInit {
   }
   
     share(text= null, image=null, link=null) {
-		// let linkShare = "hhhhhhhhhh";
+
 		
-        this.socialSharing.share(text, image, 'https://play.google.com/store/apps/details?id=io.ionic.toget_me&hl=fr')
+        this.socialSharing.share('https://play.google.com/store/apps/details?id=pro.toget.togetme&hl=fr', image, link)
             .then(() => {
-                // console.log(event);
+
 				this.presentToast( "Element partagé avec succès !");
             }).catch(() => {
 				

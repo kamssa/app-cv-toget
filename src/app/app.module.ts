@@ -1,5 +1,5 @@
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MbscModule } from '@mobiscroll/angular';
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -8,7 +8,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { SocialSharing } from '@ionic-native/social-sharing/ngx';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
-// import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { SMS } from '@ionic-native/sms/ngx';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
@@ -21,9 +21,6 @@ import { RegisterPageModule } from './resgistration/register/register.module';
 import {IonicStorageModule, Storage} from '@ionic/storage';
 import {JwtModule, JWT_OPTIONS} from '@auth0/angular-jwt';
 
-import { LoadingBarModule } from '@ngx-loading-bar/core';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
-import { LoadingBarRouterModule } from '@ngx-loading-bar/router';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { FilterPipeModule } from 'ngx-filter-pipe';
@@ -43,7 +40,7 @@ import { CguComponent } from './params/cgu/cgu.component';
 import { ResetPasswordComponent } from './params/reset-password/reset-password.component';
 import { VerificationComponent } from './params/verification/verification.component';
 import { ForgetComponent } from './params/forget/forget.component';
-import { ZoomCarteDirective } from './directives/zoom-carte.directive';
+
 import {EntreprisePage} from './entreprise/entreprise.page';
 import {EntreprisePageModule} from './entreprise/entreprise.module';
 import {ListeServicePageModule} from './liste-service/liste-service.module';
@@ -51,15 +48,14 @@ import {ListeServicePage} from './liste-service/liste-service.page';
 import { SpeechRecognition } from '@ionic-native/speech-recognition/ngx';
 import {SingleCartePageModule} from './single-carte/single-carte.module';
 import {SingleCartePage} from './single-carte/single-carte.page';
-import { GroupeByPipe } from './pipes/groupe-by.pipe';
+
 import { OneSignal } from '@ionic-native/onesignal/ngx';
 import { InAppBrowser  } from '@ionic-native/in-app-browser/ngx';
 import { FileTransfer } from '@ionic-native/file-transfer/ngx';
-// import { WebIntent } from '@ionic-native/web-intent';
+
 import { File } from '@ionic-native/file/ngx';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import { from } from 'rxjs';
-// import { NgxIntlTelInputModule } from 'ngx-intl-tel-input';
+
 export  function jwtOtionsFactory(storage) {
   return {
     tokenGetter: () => {
@@ -70,7 +66,7 @@ export  function jwtOtionsFactory(storage) {
 }
 
 @NgModule({
-  declarations: [AppComponent,ResetPasswordComponent, PlusInfoComponent,CguComponent,ForgetComponent,VerificationComponent],
+  declarations: [AppComponent, ResetPasswordComponent, PlusInfoComponent, CguComponent, ForgetComponent, VerificationComponent],
   entryComponents: [
             ForgetComponent,
             PlusInfoComponent,
@@ -87,8 +83,9 @@ export  function jwtOtionsFactory(storage) {
   ],
   exports: [],
   imports: [ 
-      BrowserModule, //LoadingBarModule, LoadingBarHttpClientModule, LoadingBarRouterModule,
-      BrowserAnimationsModule, FilterPipeModule, ComptePageModule, APropsPageModule,EntreprisePageModule,ListeServicePageModule,SingleCartePageModule,
+      BrowserModule,
+      BrowserAnimationsModule, FilterPipeModule, ComptePageModule, APropsPageModule,
+      EntreprisePageModule, ListeServicePageModule, SingleCartePageModule,
 
       IonicModule.forRoot(),
       IonicStorageModule.forRoot({
@@ -112,15 +109,17 @@ export  function jwtOtionsFactory(storage) {
       FormsModule,
       ReactiveFormsModule,
     AidePageModule,   
-    AccueilPageModule,RegisterPageModule
-	// ,  NgxIntlTelInputModule
+    AccueilPageModule,
+      RegisterPageModule
+
   ],
   providers: [
     StatusBar,
 	SMS,
     SplashScreen,
       Camera,
-    SocialSharing,AndroidPermissions,
+    SocialSharing,
+      AndroidPermissions,
       OneSignal,  InAppBrowser, FileTransfer , File,
       SpeechRecognition,
     LocalNotifications,

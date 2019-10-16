@@ -1,4 +1,4 @@
-import { Component, OnInit ,ChangeDetectorRef} from '@angular/core';
+import { Component, OnInit , ChangeDetectorRef} from '@angular/core';
 import {ModalController, ToastController} from '@ionic/angular';
 import { ParametresPage } from '../components/parametres/parametres.page';
 import { ComptePage } from '../compte/compte.page';
@@ -12,9 +12,9 @@ import {RegisterService} from '../services/register.service';
 import {Storage} from '@ionic/storage';
 import { AppConfig } from '../parametre/config';
 import {DataProviderService} from '../services/data-provider.service';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import {BehaviorSubject} from 'rxjs';
-// import { ModalController, NavController  } from '@ionic/angular';
+
 @Component({
   selector: 'app-modal-image',
   templateUrl: './modal-image.page.html',
@@ -23,7 +23,7 @@ import {BehaviorSubject} from 'rxjs';
 export class ModalImagePage implements OnInit {
 
   color: string = '#09c';
-  // color: string = '#ff7507';
+
   profil: any;
   link_img:any = AppConfig.image_url;
   valueSerDataSource = new BehaviorSubject<any>('');
@@ -53,7 +53,7 @@ ionViewWillEnter() {
 
   this.dataProviderService.valeurPhoto.subscribe(resp => {
     this.validerPhotoValue = resp;
-    console.log('valeur enter de edit  de dataphoto dan localS', this.validerPhotoValue);
+
   });
   this.changeDetectorRef.detectChanges();
   
@@ -98,7 +98,7 @@ ionViewWillLeave(){
   this.dataProviderService.loadData();
   this.dataProviderService.valeurPhoto.subscribe(resp => {
     this.validerPhotoValue = resp;
-    console.log('valeur enter de edit  de dataphoto dan localS', this.validerPhotoValue);
+
   });
 }
   async showCartes() {
@@ -122,19 +122,7 @@ ionViewWillLeave(){
      return  await modal.present();
 
 }
-  async showConfidential() { 
-    const modal = await this.modalCtrl.create({
-      component: ConfidentialComponent,
-    });
-    return await modal.present();
-  }
 
-  async showCollection() {
-    const modal = await this.modalCtrl.create({
-      component: MaCollectionPage,
-    });
-    return await modal.present();
-  }
 
   async showHistory() {
     const modal = await this.modalCtrl.create({

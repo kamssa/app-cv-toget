@@ -21,6 +21,7 @@ export class ModeleService {
     static readonly URL_CODE_VERIFY =  AppConfig.URL+'Users/resetVerif';
     static readonly URL_PASSWORD_RESET =  AppConfig.URL+'Users/passwordReset';
     static readonly DELETE_ELEMENT =  AppConfig.URL+'Collection/collection/';
+    static readonly ENTREPRISE =  AppConfig.URL+'Search/entreprise/';
     public currentPage:number=0;
     messageErreur:string;
     public size:number=10;
@@ -129,6 +130,11 @@ export class ModeleService {
 		
         public searchAide(){
             return this.http.get(ModeleService.URL_AIDE , { headers: this.headers});
+
+        }
+
+        public searchEntreprise(){
+            return this.http.get(ModeleService.ENTREPRISE , { headers: this.headers});
 
         }
 

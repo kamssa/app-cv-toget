@@ -1,4 +1,4 @@
-<!-- Modele 1 -->
+
 <div *ngIf="allData " style="margin-top: ;" [ngStyle]="{'margin-top' : (marge == true) ? '85px' : '30px'}">
 <div *ngFor="let allData of allData.data | filterBy: userFilter | filterBy : userCollectionFilter; index as i">
 			<div *ngIf="checker(allData?.id+'ma-collection') == false">
@@ -21,7 +21,6 @@
 					  <div style="position:relative; display:flex; color:#fff; flex-wrap:wrap; justify-content:center; align-items:center; width:100%; height:auto; text-align:center;" tappable (click)="openPreview('https://togetme.pro/'+allData?.m_c_v, allData, actionS, activeToolBar, privatedMe, user?.id_user, allData?.person_id, i )">
 							<span style="width:100%;">Nom : {{allData?.person_nom_phonetique || 'indisponible'}}</span><br/>
 							<span style="width:100%;">Téléphone personnel : {{allData?.person_tel_perso || 'indisponible'}}</span><br/>
-							<!-- <span style="width:100%;">Téléphone professionnel : {{allData?.person_tel_profe || 'indisponible'}}</span><br/> -->
 							<span style="width:100%;"> Email : {{allData?.person_email || 'indisponible'}}</span><br/>
 							<span style=" padding:5px; border:1px dashed #fff;"> Cette carte est en cours de création et sera bientôt disponible...</span>
 
@@ -62,17 +61,13 @@
             </div>
 
             <div *ngIf="(allData?.data | filterBy: userFilter)?.length === 0 && allData?.data?.length > 0 && allData?.model_images?.length == 0" class="alert " style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; text-align:center;">
-                <!-- <img src="assets/oups.png" style="width:50%;" alt="Oupsss!"> -->
 				<h6> Recherche de : {{userFilter?.person_service}}</h6>
                 <h5><strong>Aucune donnée trouvée </strong></h5>
-                <!-- <a href="#" routerLink="/accueil" *ngIf="actionS == false">Faire une nouvelle recherche</a> -->
             </div>
 
             <div *ngIf="(allData?.data | filterBy: userCollectionFilter)?.length === 0 && allData?.data?.length > 0 && allData?.model_images?.length == 0" class="alert " style="display:flex; justify-content:center; align-items:center; flex-wrap:wrap; text-align:center;">
-                <!-- <img src="assets/oups.png" style="width:50%;" alt="Oupsss!"> -->
 				<h6> Recherche de : {{userCollectionFilter?.person_nom_phonetique}}</h6>
                 <h5><strong>Aucune donnée trouvée </strong></h5>
-                <!-- <a href="#" routerLink="/accueil" *ngIf="actionS == false">Faire une nouvelle recherche</a> -->
             </div>
     
 		

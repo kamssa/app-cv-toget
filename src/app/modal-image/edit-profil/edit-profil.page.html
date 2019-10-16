@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Compte</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding="true">
+  <ion-item lines="none">
+    <strong>Modifier &nbsp;</strong>
+    <span *ngIf="edit==='profil'"> le nom et prenom</span>
+    <span *ngIf="edit==='pass'"> le mot de passe</span>
+    <span *ngIf="edit==='mail'"> le mail</span>
+    <span *ngIf="edit==='mobile'"> le numéro de téléphone</span>
+  </ion-item>
+  <form [formGroup]="onForm" (ngSubmit)="updateProfil(onForm)" class="list-form">
+    <ion-list interface="popover">
+      <div class="profile" *ngIf="edit==='profil'">
+        <ion-item no-padding hidden>
+          <ion-label position="floating" >Id</ion-label>
+          <ion-input type="number" formControlName="id_user" placeholder="Id"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating" >Nom</ion-label>
+          <ion-input type="text" formControlName="nom" placeholder="Nom"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating">Prénoms</ion-label>
+          <ion-input type="text" formControlName="prenoms" placeholder="Prenom"></ion-input>
+        </ion-item>
+      </div>
+      <div class="securite" *ngIf="edit==='pass'">
+        <ion-item no-padding hidden>
+          <ion-label position="floating" >Id</ion-label>
+          <ion-input type="number" formControlName="id_user" placeholder="Id"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating">Mot de passe actuel</ion-label>
+          <ion-input type="password" formControlName="lastPassword" placeholder="Mot de passe actuel"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating">Nouveau mot de passe</ion-label>
+          <ion-input type="password" formControlName="password" placeholder="Nouveau mot de passe"></ion-input>
+        </ion-item>
+
+      </div>
+      <div class="mail" *ngIf="edit==='coordonnee'">
+        <ion-item no-padding hidden>
+          <ion-label position="floating" >Id</ion-label>
+          <ion-input type="number" formControlName="id_user" placeholder="Id"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating">Email</ion-label>
+          <ion-input type="email" formControlName="email" placeholder="Votre email"></ion-input>
+        </ion-item>
+        <ion-item no-padding>
+          <ion-label position="floating">Numéro de téléphone</ion-label>
+
+          <ion-input type="telephone" formControlName="telephone" placeholder="Votre telephone"></ion-input>
+        </ion-item>
+      </div>
+    </ion-list>
+
+    <ion-button expand="block" (click)="saveData()"  fill="outline" color="primary">
+      Enregistrer
+    </ion-button>
+  </form>
+</ion-content>

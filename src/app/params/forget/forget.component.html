@@ -1,0 +1,44 @@
+<ion-header style="background-color: #ff7507;">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button  (click)="closeModal()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Mot de Passe Oublié</ion-title>
+   </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<ion-card>
+  <ion-item>
+
+    <div class="contenue">
+        <p style="text-align: center;margin-top: 12px;">
+            Entrez votre Email Toget-Me pour nous aider à vous identifier
+        </p>
+        
+        <ion-row align-items-center style="margin-top: 0px;">
+            <ion-col>
+                  <div class="rech" >
+                    <div class="rech-fils1">
+                    <input  class="rech-input" type="email" name="" [(ngModel)]="email" required placeholder="Entrer votre Email"/>
+                    </div>
+                  </div>  
+              </ion-col>
+          </ion-row>
+
+      <ion-row align-items-center>
+          <div class="btn">
+              <ion-button type="submit" expand="block" style=" text-transform: capitalize;" (click)="forgetEmail()" >Valider
+            </ion-button>
+          </div>
+      </ion-row>
+    </div>
+  </ion-item>
+
+</ion-card>
+
+
+</ion-content>
+

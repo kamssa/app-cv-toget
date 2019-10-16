@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Platform, ToastController} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
@@ -12,7 +12,7 @@ import {SpeechRecognition} from '@ionic-native/speech-recognition/ngx';
 import {DataProviderService} from './services/data-provider.service';
 import {File} from '@ionic-native/file/ngx';
 
-const TOKEN_KEY = 'access_token';
+
 
 @Component({
     selector: 'app-root',
@@ -182,20 +182,6 @@ export class AppComponent {
             );
     }
 
-    logout() {
-        this.validationToken.authenticationState.subscribe(state => {
-            if (state) {
-                this.auth.logout();
-                this.presentToast('déconnexion reussi');
-                this.router.navigate(['tabs/accueil']);
-            } else {
-                // this.presentToast('vous devez vous connecter');
-                this.router.navigate(['tabs/connexion']);
-
-            }
-        });
-
-    }
 
     async presentToast(text: string) {
         const toast = await this.toastController.create({

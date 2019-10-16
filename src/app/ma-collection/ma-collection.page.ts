@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild, ElementRef, Input, ChangeDetectorRef} from '@angular/core';
-import {NavParams, ModalController, IonInfiniteScroll, ToastController, LoadingController} from '@ionic/angular';
-import { Slider } from '@mobiscroll/angular/src/js/classes/slider';
+import { IonInfiniteScroll, ToastController, LoadingController} from '@ionic/angular';
+
 import { Router } from '@angular/router';
 import { ModeleService } from '../services/modele.service';
 import {Storage} from '@ionic/storage';
@@ -27,8 +27,8 @@ export class MaCollectionPage implements OnInit {
     verifierRetour = new BehaviorSubject(false);
 
    @Input() filskeyword;
-  // @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
-  @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll :IonInfiniteScroll;
+
+  @ViewChild(IonInfiniteScroll, { static: false }) infiniteScroll : IonInfiniteScroll;
 	userFilter:any={person_service : ''};
 	userCollectionFilter:any={person_nom_phonetique : ''};
   constructor(
@@ -43,50 +43,23 @@ export class MaCollectionPage implements OnInit {
      private   dataProviderService: DataProviderService
   )
   {
-//this.initializeApp();
-// this.showLoading();
-//this.dataProviderService.loadDataMaCollection();
+
   }
   
   
   keyUpsearch(param){
 	  this.userCollectionFilter.person_nom_phonetique = param;
-	  // this.userCollectionFilter.date_ajout = param;
-	  // this.userCollectionFilter.person_code = param;
-	  // this.userCollectionFilter.person_tel_perso = param;
-	  // this.userCollectionFilter.person_tel_profe = param;
-	  // this.userCollectionFilter.person_email = param;
-	  // this.userCollectionFilter.person_site_web = param;
-	  // console.log(param);
+
   }
- recupererToken(){
-   return   this.storage.get(TOKEN_KEY).then(token => {
-         console.log('token recuperer dans le service valider token:', token);
-
-         if (token) {
-             this.token = token;
-         }
-     });
-
- }
 
   ngOnInit() {
 
       }
 
       
-    loadData(event) {
-      setTimeout(() => {
-          console.log('plus de carte');
-          event.target.complete();
 
-          if (this.modeles.length == 1000) {
-              event.target.disabled = true;
-          }
-      }, 500);
-  }
   share(event) {
-		// this.modelService.getUpload();
+
         console.log(event.value);
         this.socialSharing.share(event.value)
             .then(() => {
@@ -116,8 +89,10 @@ export class MaCollectionPage implements OnInit {
 
                 }, err => {
                     this.presentToast('Erreur de connexion. vous tes en local. Merci ');
-                     this.modeles = [];
-                    this.modeles = this.dataProviderService.dataMaCollection;
+
+                    this.dataProviderService.loadDataMaCollection().then(value =>{
+                        this.modeles = JSON.parse(value);
+                    });
                     });
             }
 
@@ -159,7 +134,7 @@ export class MaCollectionPage implements OnInit {
 	
 	
 	supprimer(event) {
-		// this.modeleService.getUpload();
+
         this.storage.get(TOKEN_KEY).then(resp =>{
             if(!resp){
                 this.presentToast( "Une erreur est survenue !");

@@ -1,0 +1,35 @@
+<ion-header style="background-color: #ff7507;">
+    <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button  (click)="closeModal()">
+          <ion-icon name="arrow-back">annuler</ion-icon>
+        </ion-button>
+      </ion-buttons>
+      <ion-title>Vérification Code</ion-title>
+   </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <div>
+    <p style="text-align: center">
+      Nous venons de vous envoyer un code dans vôtre boîte mail.
+      Rechercher dans votre courier électronique un message de l'équipe de TOGET-ME, puis entrer le code ici.
+     veuillez vérifier dans vos Spam aussi
+    </p>
+
+    <ion-row align-items-center style="margin-top: 0px;">
+        <ion-col>
+              <div class="rech" >
+                <div class="rech-fils1">
+                <input type="number" class="rech-input" maxlength="6" [(ngModel)]="code"  placeholder="Entrer le Code"/>
+                </div>
+              </div>  
+          </ion-col>
+      </ion-row>
+  </div>
+  <div class="btn">
+      <ion-button type="submit" expand="round" style=" text-transform: capitalize;" (click)="codeVerify()" >Valider
+        </ion-button>
+  </div>
+
+</ion-content>

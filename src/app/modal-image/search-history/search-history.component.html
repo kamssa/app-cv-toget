@@ -10,63 +10,14 @@
 </ion-header>
 <ion-content>
 
-  <!-- <ion-item-group *ngFor="let activites of activities | groupeBy: 'date'; index as i"> -->
-    <!-- <ion-item-divider> -->
-      <!-- <ion-label>{{activites.key}}</ion-label> -->
-      <!-- <ion-icon slot="end" name="trash" (click)="delete_all(activites.key);"></ion-icon> -->
-    <!-- </ion-item-divider> -->
-    <!-- <ion-item *ngFor="let activite of activites.value"> -->
-      <!-- <ion-label position="floating">Recherche -->
-        <!-- <ion-icon slot="end" name="more"></ion-icon> -->
-      <!-- </ion-label> -->
-      
-      <!-- <p> -->
 
-        <!-- <span >Page : </span> <span><a [href]="activite.lien" (click)="redirect(activite.lien); false;">{{activite.lien}}</a></span> -->
-        <!-- <span style="color:lightgray;font-size:small; float:right; position: absolute; right: 20px; bottom:0px;">{{activite.heure}}</span> -->
-		
-        <!-- <span class="btn" style="color:#aaa; font-size:30px; float:right; position: absolute; right: 10px; top:-10px;"> <ion-icon slot="end" name="trash" (click)="delete(activite.id);"></ion-icon></span> -->
-		
-      <!-- </p> -->
-      <!-- <ion-thumbnail slot="end" *ngIf="activite.type == 1"> -->
-        <!-- <ion-img src="/assets/image/2.png"></ion-img> -->
-      <!-- </ion-thumbnail> -->
-    <!-- </ion-item> -->
-  <!-- </ion-item-group> -->
-  
-  <!-- <ion-item-group>
-    <ion-item-divider>
-      <ion-label>Hier</ion-label>
-    </ion-item-divider>
-  
-    <ion-item>
-      <ion-label>Bangladesh</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Belarus</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-label>Belgium</ion-label>
-    </ion-item>
-  </ion-item-group> -->
-  
   
   	  <section id="service">
     <div class="container">
     <div class="row">
         <div class="col-md-6">
             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true" >
-			
-                <!-- <div class="panel panel-default" > -->
-                    <!-- <div class="panel-heading" role="tab" id="headingOne"> -->
-                        <!-- <h4 class="panel-title"> -->
-                            <!-- <a role="button" (click)="false;"> -->
-                            
-                            <!-- </a> -->
-							 <!-- <ion-icon slot="end" name="trash" (click)="delete_all(activites.key);"></ion-icon> -->
-                        <!-- </h4> -->
-                    <!-- </div> -->
-                <!-- </div> -->
+
 				
 				 <div class="panel panel-default"  *ngFor="let activites of activities | groupeBy: 'date'; index as i">
                     <div class="panel-heading" role="tab" id="headingTwo_{{i}}">
@@ -93,8 +44,7 @@
 									<span style="color:lightgray;font-size:small; float:right; position: absolute; right: 20px; bottom:0px;">{{activite.heure}} &nbsp;&nbsp;&nbsp;<ion-icon style="color:#aaa; font-size:30px; " slot="end" name="trash" (click)="delete(activite.id); false;"></ion-icon></span>
 									
 									<span  style="color:#aaa; font-size:30px; float:right; position: absolute; right: 10px;" (click)=" false;"> 
-									<!-- <i class="fa fa-trash"></i> -->
-									
+
 									</span>
 									
 								  	

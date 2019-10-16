@@ -8,7 +8,7 @@ import { ModalController } from '@ionic/angular';
 import {MessageAlerteService} from '../../services/message-alerte.service';
 import {SpeechRecognition} from '@ionic-native/speech-recognition/ngx';
 import {LoadingController, Platform} from '@ionic/angular';
-import {ValiderTokenService} from '../../services/valider-token.service';
+
 import { ForgetComponent } from 'src/app/params/forget/forget.component';
 
 @Component({
@@ -21,9 +21,10 @@ export class ConnexionPage implements OnInit {
     password: string = '';
     passwordShow: boolean = false;
     tooltipsMessage: string = '';
-    isSpeechAvalable = false;
+
     matches: Array<string> = [];
     isListening = false;
+
 
     connexionForm = this.fb.group({
         login: ['', Validators.required],
@@ -40,15 +41,9 @@ export class ConnexionPage implements OnInit {
         private platform: Platform,
         private modalCtrl: ModalController,
         private changeDetectorRef: ChangeDetectorRef,
-        private loadingCtl: LoadingController,
-        private validerToken: ValiderTokenService
+        private loadingCtl: LoadingController
     ) {
-      /*  this.platform.ready().then(() => {
-            // Check feature available
-            this.speechRecognition.isRecognitionAvailable()
-                .then((available: boolean) => this.isSpeechAvalable = available);
 
-        });*/
         this.togglePassword();
 
     }
@@ -93,7 +88,10 @@ export class ConnexionPage implements OnInit {
 
                 if (data['status'] === 200) {
 
-                    this.messageAlerte.presentToast("Connexion réussie",);
+                   this.messageAlerte.presentToast("Connexion réussie",);
+
+                     // this.router.navigateByUrl('/tabs/accueil');
+
 
                 } else {
                     let message = this.user = data['message'];
@@ -140,15 +138,5 @@ export class ConnexionPage implements OnInit {
      });
   return await modal.present();
   }
-  async showLoading(){
-    let loading = await this.loadingCtl.create({
-        message:"Chargement...",
-        duration: 2000,
-        showBackdrop: false,
-        spinner: "lines-small"
-    });
-    loading.present();
 
-
-}
 }

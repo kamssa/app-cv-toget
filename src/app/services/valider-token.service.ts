@@ -16,8 +16,6 @@ export class ValiderTokenService {
 
   checkToken() {
     this.storage.get(TOKEN_KEY).then(token => {
-      console.log('token recuperer dans le service valider token:', token);
-     
       if (token) {
         let decode = this.helper.decodeToken(token);
         let expirationDate = this.helper.getTokenExpirationDate(token);
@@ -32,7 +30,5 @@ export class ValiderTokenService {
       }
     });
   }
-  isAuthenticated(){
-    return this.authenticationState.value;
-  }
+
 }

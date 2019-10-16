@@ -1,10 +1,47 @@
+<ion-header style="background-color: #ff7507;">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button  (click)="closeModal()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+	<ion-title>Nos entreprises</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+ <ion-card>
+
 <ion-card>
-  <ion-card-content [ngStyle]="{
-    'background-image':'url('+image_fond+')',
-    'background-repeat':'no-repeat',
-    'background-position':'top'}">
-    <ng-content></ng-content>
-  </ion-card-content>
-<span class="bout" (click)="onPartager()"><ion-icon name="share" title="Partager"></ion-icon>Partager</span>
-<span class="bout" (click)="onAjouter()"> <ion-icon name="heart" title="Ma collection"></ion-icon>Enregistrer</span>
+  <ion-item lines="none">
+    <ion-icon name="albums" slot="start"  style="color:#09c;"></ion-icon>
+    <ion-label>Liste des entreprises inscrit à togetme</ion-label>
+  </ion-item>
 </ion-card>
+  <ion-card-content>
+   
+	
+
+   
+			   <div style="background:#fefefe; width:100%; padding:0px; display:flex; justify-content:center; flex-wrap:wrap;">
+   <ion-card style="float:left; border:1px dashed #eee; margin:5px; padding:0;" (click)="presentAlertConfirm(ont, link_img + ont?.entreprise_logo);" *ngFor="let ont of entreprise">
+ 
+
+					<div style="background:#transparent; width:80px; height:80px; display:flex; justify-content:center; align-items:center; flex-wrap:wrap;  margin:10px;" >
+						<div style="width:60%; height:70%; background:transparent; display:flex; justify-content:center; align-items:center; "> <img src="{{link_img + ont?.entreprise_logo}}" style="width:100%;" /></div>
+						<div style="width:100%; height:40%; text-align: center; font-size:10px; overflow:hidden; background:#09c; color:#fff; display:flex; justify-content:center; align-items:center; border:1px solid #eee;"> {{ont?.entreprise_nom_commercial}} </div>
+					</div>
+
+	
+
+
+</ion-card>
+			   </div>	
+
+  </ion-card-content>
+</ion-card>
+
+  
+
+
+
+</ion-content>

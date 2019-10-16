@@ -1,6 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Renderer2 } from '@angular/core';
-import { MbscFormOptions, MbscListviewOptions } from '@mobiscroll/angular';
-import { Input } from '@mobiscroll/angular/src/js/classes/input';
+import { Component, OnInit } from '@angular/core';
 import { ModeleService } from '../services/modele.service';
 import {BehaviorSubject} from 'rxjs';
 import {LoadingController} from '@ionic/angular';
@@ -33,20 +31,7 @@ export class AidePage implements OnInit {
     this.showLoading();
   }
 
-  expandItem(item): void {
-    if (item.expanded) {
-      item.expanded = false;
-    } else {
-      this.items.map(listItem => {
-        if (item == listItem) {
-          listItem.expanded = !listItem.expanded;
-        } else {
-          listItem.expanded = false;
-        }
-        return listItem;
-      });
-    }
-  }
+
 
   ngOnInit() { 
     this.modeService.searchAide().subscribe(response => {
@@ -86,15 +71,8 @@ closeModal(){
 	showme(me, other, col){
 		
 		this.playAudio();
-		// $('.' + other).toggle(700);
 		$('#' + me).toggle(500);
-		// $('.me_col').addClass('collapsed');
 		$('#' + col).toggleClass('collapsed');
-		
-	}
+  }
 	
-	
-
-
-
 }

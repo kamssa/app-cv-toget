@@ -6,8 +6,8 @@ import {RegisterService} from '../services/register.service';
 import {AppConfig} from '../parametre/config';
 import {DataProviderService} from '../services/data-provider.service';
 import {EditProfilPage} from '../modal-image/edit-profil/edit-profil.page';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
+import {BehaviorSubject} from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 
@@ -18,7 +18,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 })
 export class ComptePage implements OnInit {
 
-    //profil: any = [];
+
     link_img: any = AppConfig.image_url;
     validerPhotoValue: boolean;
     data: any;
@@ -122,7 +122,6 @@ export class ComptePage implements OnInit {
     private getPicture(params: CameraOptions) {
 
         this.camera.getPicture(params).then(data => {
-         //   this.dataProviderService.data.photos = 'data:image/png;base64,' + data;
             this.auth.updateProfil({
                 id_user: this.dataProviderService.data['id_user'],
                 user_photo: 'data:image/png;base64,' + data
@@ -148,39 +147,6 @@ export class ComptePage implements OnInit {
 
 
         });
-    }
-
-    async deleteItem(index) {
-        const alert = await this.alerteCtrl.create({
-            header: 'Supprimer!',
-            message: 'Voullez vous vraiment supprimer?',
-            buttons: [
-                {
-                    text: 'Annuler',
-                    role: 'cancel',
-                    cssClass: 'secondary',
-                    handler: (blah) => {
-                    }
-                }, {
-                    text: 'Supprimer',
-                    handler: () => {
-                        this.dataProviderService.data.splice(index, 1);
-                       // this.dataProviderService.updateData(this.profil);
-                        this.deleteMessage();
-                    }
-                }
-            ]
-        });
-
-        await alert.present();
-    }
-
-    async deleteMessage() {
-        const toast = await this.toastController.create({
-            message: 'Item correctement supprimé',
-            duration: 2000
-        });
-        toast.present();
     }
 
     async showLoading(){

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ModalController } from '@ionic/angular';
+import {  ModalController } from '@ionic/angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import {Platform} from '@ionic/angular';
-// import { ModalController } from '@ionic/angular';
+
 import {EntreprisePage} from '../entreprise/entreprise.page';
 @Component({
   selector: 'app-particulier',

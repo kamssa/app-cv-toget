@@ -23,6 +23,6 @@ const routes: Routes = [
 
     RouterModule.forChild(routes)
   ],
-  declarations: [ParticulierPage, ZoomCarteDirective]
+  declarations: [ParticulierPage]
 })
 export class ParticulierPageModule {}

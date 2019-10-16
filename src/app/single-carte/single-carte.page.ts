@@ -47,20 +47,5 @@ export class SingleCartePage implements OnInit {
 	   
   }
 
-public getSantizeUrl(url : string) {
-    return this.sanitizer.bypassSecurityTrustUrl(url);
-}
 
-
-	sendSMS(tel, messages){
-		this.sms.send(tel, messages);
-	}
-  onPartager(){
-    this.link = 'http://192.168.8.200:8100/share/'+this._id+'/'+this.code;
-    this.share.emit({value:this.link});
-
-  }
-  onAjouter(){
-    this.ajouter.emit({value:this._id});
-   }
 }

@@ -1,8 +1,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { NavController, ModalController, LoadingController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { PhotoViewer } from '@ionic-native/photo-viewer/ngx';
 import {Platform} from '@ionic/angular';
-import {EntreprisePage} from '../../entreprise/entreprise.page';
 import {OutilService} from '../../parametre/outil.service';
 import {RegisterService} from '../../services/register.service';
 @Component({
@@ -51,38 +50,19 @@ export class ModeleCarteComponent implements OnInit {
   @Output() ajouter = new  EventEmitter<any>();
   @Output() supprimer = new  EventEmitter<any>();
   link:any;
-  tailleAll=0;
-	public otp: any=[];
-	public keysearch = 0;
-	loadingBar = true;
+  loadingBar = true;
 	
   constructor(private photoViewer: PhotoViewer,private platform: Platform, private modalController: ModalController, private outil : OutilService,
-    private loadingCtl: LoadingController, public registerService : RegisterService) { this.showLoading();  this.ionViewWillEnter();}
+    public registerService : RegisterService) { this.showLoading();  this.ionViewWillEnter();}
 
   ngOnInit() {
-				  // console.log('azerty');
-			// let u = this;
 
-	  // if(Image.addEventListener) {
-		  // Image.addEventListener("load",function() {
-		  
-		  	// u.loading = false;
-			 // console.log('element : ', u.loading); // 2nd
-		  
-	  // }); }
-// else { Image.attachEvent("onload", function() {
-	
-		// u.loading = false;
-			 // console.log('element : ', u.loading); // 2nd
-// }); }
   }
   
   ionViewWillEnter(){
-			// let u=this;
-		    // window.onload = (e) => {
-            // u.loadingBar = false;
+
 		  console.log('azerty');
-			// };
+
 		
 			let u = this;
 			window.addEventListener("DOMContentLoaded", (event) => {
@@ -94,67 +74,21 @@ export class ModeleCarteComponent implements OnInit {
   
   
   
-      async showLoading(){
-		  // let u= this;
-        // let loading = await this.loadingCtl.create({
-            // message:"Chargement...",
-            // duration: 2000,
-            // showBackdrop: false,
-            // spinner: "lines-small"
-        // });
-        // loading.present().then(() => {
-            // if (u.loading == false){
-             // loading.dismiss();
-            // }
-        // });
+      async showLoading() {
 
 
     }
 	
 	
-	converter(param:any){
-	  let u= this;
-	  let jsonStr = param.replace(/(\w+:)|(\w+ :)/g, function(s) {
-		return '"' + s.substring(0, s.length-1) + '":';
-				});
-				if(jsonStr){
-					
-					  this.otp = JSON.parse(jsonStr);	
-				}
-	  return this.otp;  
-	}
-  onPartager(){
-    this.link = 'http://192.168.8.200:8100/share/'+this._id+'/'+this.code;
-    this.share.emit({value:this.link});
 
-  }
-  
-  
-  taille():any{
-	  return this.allData.data.length;
-  }
-  onAjouter(param){
-    this.ajouter.emit({value:param});
-   }
-
-   ondelete(id){
-    this.supprimer.emit({value:id});
-   }
-   
-   
     openPreview(img, allData:any={}, suppr=false, active=false,privates=false, id, personne, position) {
-		// console.log(id);
-		// console.log(personne);
+
 		this.outil.openPreview(img, allData, suppr, active, privates, id, personne);
-		// let f = this.allData.data.splice(position, 0);
-		// console.log(f);
-		// console.log(this.registerService.comunication);
-		// this.registerService.comunication = 0;
+
   }
   
   
-  checker(param):boolean{
-	  // if(this.registerService.comunication && this.registerService.comunication.length > 0){}
+  checker(param): boolean {
 	  if(this.registerService.comunication.indexOf(param) != -1)
 		{  
 		   return true
@@ -166,15 +100,5 @@ export class ModeleCarteComponent implements OnInit {
 			this.allData.data = [];
 		}
   }
-  
-  
-  in_array(needle, haystack){
-    let found = 0;
-    for (let i=0, len=haystack.length;i<len;i++) {
-        if (haystack[i] == needle) return i;
-            found++;
-    }
-    return -1;
-	}
 
 }

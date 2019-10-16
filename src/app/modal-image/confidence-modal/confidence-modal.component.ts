@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { NavParams, PopoverController } from '@ionic/angular';
-import { ViewController } from '@ionic/core';
+
 
 @Component({
   selector: 'app-confidence-modal',
@@ -9,7 +9,7 @@ import { ViewController } from '@ionic/core';
 })
 export class ConfidenceModalComponent implements OnInit {
 
-  // confidence: number;
+
   @Output('update') update : EventEmitter<number> = new EventEmitter<number>();
   @Input('titre') titre: string;
   @Input('confidence') confidence: number;

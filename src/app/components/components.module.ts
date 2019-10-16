@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { ExampleCarteComponent } from './example-carte/example-carte.component';
 import { ExpandableComponent } from './expandable/expandable.component';
-import { ParametresPage } from './parametres/parametres.page';
+
 import { ZoomCarteDirective } from '../directives/zoom-carte.directive';
 import { FilterPipeModule } from 'ngx-filter-pipe';
 @NgModule({

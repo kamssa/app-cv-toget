@@ -11,10 +11,7 @@ import { SecuriteComponent } from 'src/app/params/securite/securite.component';
 import { StockageComponent } from 'src/app/params/stockage/stockage.component';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: ParametresPage
-  // }
+
 ];
 
 @NgModule({
@@ -28,6 +25,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [ParametresPage, NotificationComponent ,SecuriteComponent, StockageComponent]
+  declarations: [ParametresPage, NotificationComponent , SecuriteComponent, StockageComponent]
 })
 export class ParametresPageModule {}

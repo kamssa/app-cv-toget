@@ -2,16 +2,13 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Routes, RouterModule } from '@angular/router';
-// import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+
 import { IonicModule } from '@ionic/angular';
 
 import { EntreprisePage } from './entreprise.page';
 
 const routes: Routes = [
-  // {
-  //   path: '',
-  //   component: EntreprisePage
-  // }
+
 ];
 
 @NgModule({
